@@ -21,7 +21,6 @@ export class AppComponent implements AfterViewInit {
 
   constructor() {}
 
-
   ngAfterViewInit(): void {
     this.lstTab = [
       {
