@@ -7,70 +7,65 @@
             <div class="col-12">
             </div>
             <div class="col-6">
-              <ul class="tabs-container">
-                <!-- Sử dụng ngFor để lặp qua mảng tabsData -->
-                <ng-container *ngFor="let group of lstTab">
-                  <!-- Kiểm tra xem tab nào đang được chọn trong dropdown -->
-                  <ng-container *ngIf="activeDropdownTab == group.name">
-                    <!-- Lặp qua các tab của nhóm hiện tại -->
-                    <li *ngFor="let tab of group.tabs"
-                        (click)="clickDropdownTab(tab.name)"
-                        [class.active]="activeDropdownTab == tab.name"
-                        class="tab-link">
-                      {{ tab.name }}
-                    </li>
-                  </ng-container>
-                </ng-container>
-              </ul>
-              <!-- Sử dụng activeTab để hiển thị nội dung tương ứng với tab đang được chọn -->
-              <div>
-                <ng-container *ngFor="let group of lstTab">
-                  <div *ngIf="activeTab == group.name">
-                    <ng-container *ngFor="let tab of group.tabs">
-                      <div *ngIf="activeTab == tab.name">
-                        <ng-container *ngComponentOutlet="tab.component"></ng-container>
-                      </div>
-                    </ng-container>
-                  </div>
-                </ng-container>
-              </div>
-            </div>
-
-            <!-- Dropdown Bootstrap thay thế cho button "All" -->
-            <div>
-              <div ngbDropdown class="position-absolute" style="top: 25px; left: 400px; position: absolute;">
-                <span type="button" class="btn btn-icon btn-sm rounded-circle" style="background-color: #0BB51C"
-                      ngbDropdownToggle>
-                  <i class="icon-keyboard_arrow_down" style="color: white"></i>
-                </span>
-                <div ngbDropdownMenu class="" style="min-width: 200px; height: fit-content">
-                  <div>
+                <div ngbDropdown class="position-absolute" style="top: 25px; right: 0; position: absolute;">
+                  <span type="button" class="btn btn-icon btn-sm rounded-circle" style="background-color: #0BB51C"
+                        ngbDropdownToggle>
+                    <i class="icon-keyboard_arrow_down" style="color: white"></i>
+                  </span>
+                  <div ngbDropdownMenu style="height: fit-content">
                     <div>
-                      <span><i class="icon-keyboard_arrow_down"></i></span>
-                      <span>ALL</span>
+                      <div>
+                        <span><i class="icon-keyboard_arrow_down"></i></span>
+                        <span>ALL</span>
+                      </div>
+                      <div class="px-3">
+                      </div>
                     </div>
-                    <div class="px-3">
-                    </div>
-                  </div>
-                  <div class="w-100">
-                    <ul class="nav nav-tabs nav-pills flex-column border-0 p-3 pb-0 w-100">
-                      <ng-container *ngFor="let item of lstTab; let index = index">
-                        <li class="nav-item w-100 mb-1">
-                          <a class="nav-link w-100 btn btn-lg btn-clean" data-bs-toggle="tab" [id]="'tab_' + index"
-                             (click)="clickTab(item)">
-                            <div class="d-flex align-items-center">
-                              <div class="fw-bold">
-                                {{ item.name }}
+                    <div class="w-100">
+                      <ul class="nav nav-tabs nav-pills flex-column border-0 p-3 pb-0 w-100">
+                        <ng-container *ngFor="let item of lstTab; let index = index">
+                          <li class="nav-item w-100 mb-1">
+                            <a class="nav-link w-100 btn btn-lg btn-clean"
+                               (click)="clickTab(item)">
+                              <div class="d-flex align-items-center">
+                                <div class="fw-bold">
+                                  {{ item.name }}
+                                </div>
                               </div>
-                            </div>
-                          </a>
-                        </li>
-                      </ng-container>
-                    </ul>
+                            </a>
+                          </li>
+                        </ng-container>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+                <ul class="tabs-container">
+                  <!-- Sử dụng ngFor để lặp qua các nhóm tabs trong lstTab -->
+                  <ng-container *ngFor="let group of lstTab">
+                    <!-- Chỉ hiển thị các tabs trong nhóm nếu nhóm đó là activeDropdownTab -->
+                    <ng-container *ngIf="activeDropdownTab === group.name">
+                      <!-- Lặp qua các tab trong nhóm và hiển thị tên và thêm sự kiện click -->
+                      <li *ngFor="let tab of group.tabs" 
+                          (click)="clickDropdownTab(tab.name)" 
+                          [class.active]="activeDropdownTab === tab.name" 
+                          class="tab-link">
+                        {{ tab.name }}
+                      </li>
+                    </ng-container>
+                  </ng-container>
+                </ul>
+              <!-- Sử dụng activeTab để hiển thị nội dung tương ứng với tab đang được chọn -->
+              <ng-container *ngFor="let group of lstTab">
+                <ng-container *ngIf="activeDropdownTab === group.name">
+                    <ng-container *ngFor="let tab of group.tabs">
+                        <div *ngIf="activeTab === tab.name">
+                            <ng-container *ngTemplateOutlet="tab.template"></ng-container>
+                        </div>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+            <!-- Dropdown Bootstrap thay thế cho button "All" -->
+            
             <!-- End -->
           </div>
         </div>
@@ -78,3 +73,12 @@
     </div>
   </div>
 </div>
+
+<ng-template #tab1Template>
+  <app-tab></app-tab>
+</ng-template>
+
+<ng-template #tab2Template>
+  <app-tab1></app-tab1>
+</ng-template>
+

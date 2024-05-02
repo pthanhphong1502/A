@@ -1,4 +1,4 @@
-.tabs-container{
+.tabs-container {
   background: #eee;
   list-style-type: none;
   padding-left: 0;
@@ -6,17 +6,14 @@
   height: 55px;
   border-bottom: 1px solid #ccc;
   width: 100%;
-  }
 
-  .tabs-container .tab-link{
-  position: relative;
-  padding: 10px;
-  float: left;
-  text-align: center;
-  }
+  .tab-link {
+    position: relative;
+    padding: 10px;
+    float: left;
+    text-align: center;
 
-
-  .tab-link::after {
+    &::after {
       position: absolute;
       left: 4px;
       right: 4px;
@@ -28,216 +25,119 @@
       transform: scaleX(0);
       transition: transform 250ms ease-in-out;
     }
-    .tab-link:hover:after {
+
+    &:hover::after {
       transform: scaleX(1);
-      /* transform-origin: 100% 50%; For Right*/
-      /* transform-origin: 0% 50%; For Left*/
     }
-  .active::after {
-    transform: scaleX(1);
+
+    &.active::after {
+      transform: scaleX(1);
+    }
+
+    &.active {
+      color: #18a790 !important;
+    }
   }
-    .active{
-      color: #18a790!important;
+}
+
+.h-employee {
+  .tree-bar,
+  .h-od-tab {
+    border-radius: 8px;
+    border: 1px solid #e2e3ee;
+  }
+
+  .h-od-tab .nav-item .nav-link {
+    text-align: center;
+    padding: 10px 4px 2px;
+    margin-right: 10px;
+    display: inline-block;
+    border: 0;
+
+    &.active {
+      background-color: #0078ff;
+      color: #ffffff !important;
     }
+  }
+}
 
-    // Tab
-    .user-profile {
-      background-color: #f5f8fa;
-    }
+.info-dropdownlist {
+  max-height: calc(100vh - 380px);
+  overflow: auto;
+  margin-right: -10px;
+  padding-right: 10px;
+}
 
-    .emp-check-add {
-      position: fixed;
-      z-index: 105;
-      bottom: 12px;
-      right: 12px;
-      width: 40px !important;
-      height: 40px !important;
-      box-shadow: 0px 2px 8px 2px rgb(0 0 0 / 40%) !important;
-    }
+.timeline-exper-nav::after {
+  content: '';
+  background-color: #d6d6d6;
+  width: 1px;
+  position: absolute;
+  top: 15px;
+  left: 133.2px;
+  bottom: -3px;
+  z-index: 9;
+}
 
-    .emp-check-add .btn.icon-add {
-      width: 45px !important;
-      height: 45px !important;
-    }
+.timeline-exper-item:last-child .timeline-exper-nav::after {
+  display: none;
+}
 
-    .h-employee {
-      overflow: hidden;
-      position: relative;
-      // max-width: 1280px;
-      margin: 0 auto;
-    }
+.hover-active:hover {
+  .item-active {
+    color: #0078ff;
+    font-weight: bold;
+  }
+}
 
-    .user-menu {
-      height: calc(100vh - 310px) !important;
-    }
-    // .tab-pane.fade.show.active .pw-content {
-    //   height: calc(100vh - 124px) !important;
-    //   overflow-x: hidden;
-    //   background-color: antiquewhite;
-    //   border: 1px aqua solid!important;
-    // }
+.icon-qr_code_scanner,
+.personid {
+  color: #ff001b;
+}
 
-    .h-employee {
-      .pic-emloyee .top-100.start-100 {
-        left: 0px!important;
-        margin-top: -10px;
-      }
+.date {
+  color: #3a9679;
+  background-color: #defffe;
+  border-radius: 20px;
+  padding: 5px;
+}
 
+.btn-add,
+.btn-more {
+  border: none;
+  font-weight: 400;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+  padding: 5px;
+}
 
-      .bg-sidebar {
-        height: 230px;
-      }
+.btn-add {
+  background-color: #056dfa;
+}
 
-      .profile-bg {
-        background-repeat: no-repeat;
-        background-size: 100% auto;
-        height: 125px;
-        border-radius: 8px 8px 0 0;
-      }
+.icon-add-css,
+.btn-add {
+  color: white;
+}
 
-      .user-left {
-        border-radius: 10px 10px 0 0;
-      }
+.btn-more {
+  background-color: #f8f8f9;
+}
 
-      .profile-info {
-        margin-top: -80px;
-      }
+.icon-css {
+  color: #91919f;
+}
 
-      .icon-circle-group {
-        font-size: 5px !important;
-      }
+.user-right .e-tab-header {
+  margin-bottom: 1.25rem !important;
+}
 
-      .h-od-tab,
-      .tree-bar {
-        border-radius: 8px !important;
-        border: 1px solid var(--Line-Line, #E2E3EE);
-      }
+.icon-tab-parent {
+  color: #0078ff;
+}
 
-      .h-od-tab .nav-item {
-        .nav-link {
-          text-align: center;
-          padding: 10px 4px 2px;
-          margin-right: 10px;
-          display: inline-block;
-          border: 0;
-          // border-bottom: 2px transparent solid;
-
-          &.active {
-            // border-color: var(--primary-dark);
-            background-color: #0078FF;
-            // color: var(--primary-dark);
-            color: #FFFFFF !important;
-          }
-        }
-
-        .nav-link:hover {
-          border-color: var(--primary) !important;
-          background-color: #0078FF !important;
-          color: #FFFFFF !important;
-        }
-      }
-
-
-    }
-
-    .profile-grid .e-gridcontent {
-      max-height: 320px;
-      overflow: auto;
-    }
-    .info-dropdownlist{
-      max-height: calc(100vh - 380px);
-      overflow: auto;
-      margin-right: -10px;
-      padding-right: 10px;
-    }
-    .profile-info .position-absolute.dropdown.start-0 {
-      left: 100%!important;
-      margin-left: -30px;
-    }
-    .user-family .bg-white{
-      min-height: calc(100vh - 130px);
-    }
-    .timeline-exper-nav::after{
-        content: "";
-        background-color: var(--gray-300);
-        width: 1px;
-        position: absolute;
-        top: 15px;
-        left: 133.2px;
-        bottom: -3px;
-        z-index: 9;
-    }
-    .timeline-exper-item:last-child .timeline-exper-nav::after{
-      display: none;
-    }
-    .hover-active:hover{
-      .item-active{
-          color: var(--primary);
-          font-weight: bold;
-      }
-    }
-
-    .icon-qr_code_scanner, .personid{
-      color: #FF001B;
-    }
-
-    .info-card-header {
-      border-radius: 10px;
-      background: var(--Linear-Linear-4, linear-gradient(104deg, #006FED 6.02%, #07F 23.58%, #00F0FF 99.68%));
-    }
-
-    .tab-height {
-      height: 77px;
-    }
-
-    .date {
-      color: #3A9679;
-      background-color: #DEFFFE;
-      border-radius: 20px;
-      padding: 5px;
-    }
-
-    .btn-add, .btn-more {
-      border: none;
-      font-weight: 400;
-      border-radius: 5px;
-      font-size: 14px;
-      text-align: center;
-      padding: 5px;
-    }
-
-    .btn-add {
-      background-color: #056DFA;
-    }
-
-    .icon-add-css, .btn-add {
-      color: white;
-    }
-
-    .btn-more {
-      background-color: #F8F8F9;
-    }
-
-    .icon-css {
-      color: #91919F;
-    }
-
-    .tree-bar .scroll-y {
-      transition: height 0.5s ease;
-    }
-
-    .user-right .e-tab-header {
-      margin-bottom: 1.25rem !important; /* Khoảng cách giữa phần header và nội dung */
-    }
-
-    .icon-tab-parent {
-      color: #0078FF;
-    }
-
-    .icon-tab-parent:hover {
-      color: white !important;
-    }
-
-    .icon-tab-parent:active {
-      color: white !important;
-    }
+.icon-tab-parent:hover,
+.icon-tab-parent:active {
+  color: white !important;
+}
