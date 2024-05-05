@@ -10,6 +10,9 @@ export class AppComponent implements AfterViewInit {
   activeTab: string = 'eInfo';
   activeDropdownTab: string = 'circurriculumVitae';
   dropdownOpen = false;
+  isHovered: boolean = false;
+  showTab: boolean = false;
+
 
   //Test
   @ViewChild('tab1Template') tab1Template!: TemplateRef<any>;
@@ -48,6 +51,15 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
+  toggleTab(): void {
+    this.showTab = !this.showTab;
+    console.log(111);
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
+
   checkButtonStatus() {
     const container = this.scrollContainer.nativeElement;
     // Kiểm tra nếu đã đến cận cảng bên trái
@@ -69,7 +81,6 @@ export class AppComponent implements AfterViewInit {
         name: 'circurriculumVitae',
         icon: 'icon-attach_money',
         text: 'Sơ yếu lý lịch',
-	      icon: 'icon-attach_money',
         tabs: [
           { text: 'THÔNG TIN CÁ NHÂN', name: 'eInfo', template: this.eInfo, active: true, icon: 'icon-attach_money' },
           { text: 'THÔNG TIN CÔNG VIỆC', name: 'eJob', template: this.eJob, active: true, icon: 'icon-attach_money' },

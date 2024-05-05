@@ -12,6 +12,7 @@
 .tab {
   padding: 10px;
   width: 100%;
+  max-width: 80%;
 }
 
 
@@ -56,15 +57,46 @@
 }
 
 .right {
-  right: 13%;
+  right: 8%;
 }
 
 .icon {
   color: #005DC7;
 }
 
+.ls-tab {
+  width: 98%;
+  // margin-right: 10%;
+
+}
 
 .ls-tab:hover {
   background-color: #0078FF !important;
   color: white !important;
+} 
+
+.ls-tab:hover i {
+  color: white;
+}
+
+.box-submenu-2 {
+  display: none;
+
+}
+
+.box-submenu-2:hover {
+  display: block;
+  position: absolute;
+
+}
+
+.submenu-hover:hover .box-submenu-2{
+  display: block;
+  position: fixed;
+  margin-top: -44px;
+  margin-left: 210px;
+}
+
+.box-submenu {
+
 }
