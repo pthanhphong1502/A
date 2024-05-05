@@ -1,5 +1,3 @@
-
-
 <ng-template #tab1Template>
   <app-tab></app-tab>
 </ng-template>
@@ -18,34 +16,32 @@
           <div class="mx-2">
             <div class="d-flex flex-wrap">
               <div class="align-items-center d-flex fs-6 fw-bold">
-                <span class="fw-bold" placement="bottom" [title]="'eInfoHeaderEmployeeName'"
-                  style="color: white">
+                <span class="fw-bold" placement="bottom" [title]="'eInfoHeaderEmployeeName'" style="color: white">
                   Ho Van Test</span>
-                  <div class="align-items-center d-flex">
-                    <span class="icon-14 icon-qr_code_scanner mx-1"></span>
-                    <span style="margin-top: 2px; color: #FF001B" #id placement="bottom"
-                      [title]="'Employree'">
-                      employeeID</span>
-                  </div>
+                <div class="align-items-center d-flex">
+                  <span class="icon-14 icon-qr_code_scanner mx-1"></span>
+                  <span style="margin-top: 2px; color: #FF001B" #id placement="bottom" [title]="'Employree'">
+                    employeeID</span>
+                </div>
               </div>
             </div>
             <div placement="bottom" [title]="'eInfoPositionID'" class="d-flex" style="color: #F3F3F3"></div>
-              Position
-            </div>
-            <div class="d-flex" style="color: #D3E8FF">
-              <div [title]="'eInfoOrgUnitID'">orgUnitStr
-              </div>
+            Position
+          </div>
+          <div class="d-flex" style="color: #D3E8FF">
+            <div [title]="'eInfoOrgUnitID'">orgUnitStr
             </div>
           </div>
-          <!-- End Content -->
         </div>
+        <!-- End Content -->
       </div>
+    </div>
   </div>
   <div class="tab">
     <div class="container">
       <div ngbDropdown class="position-absolute" style="top: 25px; right: 0; position: absolute;">
-        <button type="button" class="btn btn-icon btn-sm rounded-circle" style="background-color: #C9F7F5; color: #005DC7"
-              ngbDropdownToggle>
+        <button type="button" class="btn btn-icon btn-sm rounded-circle"
+          style="background-color: #C9F7F5; color: #005DC7" ngbDropdownToggle>
           <i class="icon-keyboard_arrow_down" style="color: white"></i>
         </button>
         <div ngbDropdownMenu style="height: fit-content">
@@ -61,8 +57,7 @@
             <ul class="nav nav-tabs nav-pills flex-column border-0 p-3 pb-0 w-100">
               <ng-container *ngFor="let item of lstTab; let index = index">
                 <li class="nav-item w-100 mb-1" style="width: 100%; margin-bottom: 5px;">
-                  <a class="nav-link w-100 btn btn-lg btn-clean"
-                     (click)="clickTab(item)">
+                  <a class="nav-link w-100 btn btn-lg btn-clean" (click)="clickTab(item)">
                     <div class="d-flex align-items-center">
                       <div class="fw-bold">
                         {{ item.text }}
@@ -75,34 +70,40 @@
           </div>
         </div>
       </div>
-      <ul class="tabs-container">
-        <!-- Sử dụng ngFor để lặp qua các nhóm tabs trong lstTab -->
-        <ng-container *ngFor="let group of lstTab">
-          <!-- Chỉ hiển thị các tabs trong nhóm nếu nhóm đó là activeDropdownTab -->
-          <ng-container *ngIf="activeDropdownTab === group.name">
-            <!-- Lặp qua các tab trong nhóm và hiển thị tên và thêm sự kiện click -->
-            <ng-container *ngFor="let tab of group.tabs">
-
-            <li *ngIf="tab.active"
-                (click)="clickDropdownTab(tab.name)"
-                [class.active]="activeDropdownTab === tab.name"
-                class="tab-link d-flex text-uppercase fw-bold align-items-center">
-              {{ tab.text }}
-            </li>
+      <div class="tabs-container-parent">
+        <ul class="tabs-container scroll-container" #scrollContainer>
+          <!-- Sử dụng ngFor để lặp qua các nhóm tabs trong lstTab -->
+          <ng-container *ngFor="let group of lstTab">
+            <!-- Chỉ hiển thị các tabs trong nhóm nếu nhóm đó là activeDropdownTab -->
+            <ng-container *ngIf="activeDropdownTab === group.name">
+              <!-- Lặp qua các tab trong nhóm và hiển thị tên và thêm sự kiện click -->
+              <ng-container *ngFor="let tab of group.tabs">
+                <li *ngIf="tab.active" (click)="clickDropdownTab(tab.name)"
+                  [class.active]="activeDropdownTab === tab.name"
+                  class="tab-link d-flex text-uppercase fw-bold align-items-center item ">
+                  {{ tab.text }}
+                </li>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ul>
+        <button (click)="scrollLeft()" [disabled]="disableLeft">
+          <i class="icon-keyboard_arrow_left"></i>
+        </button>
+        <button (click)="scrollRight()" [disabled]="disableRight">
+          <i cla></i>
+        </button>
+      </div>
+      <!-- Sử dụng activeTab để hiển thị nội dung tương ứng với tab đang được chọn -->
+      <ng-container *ngFor="let group of lstTab">
+        <ng-container *ngIf="activeDropdownTab === group.name">
+          <ng-container *ngFor="let tab of group.tabs">
+            <div *ngIf="activeTab === tab.name">
+              <ng-container *ngTemplateOutlet="tab.template"></ng-container>
+            </div>
           </ng-container>
         </ng-container>
       </ng-container>
-      </ul>
-    <!-- Sử dụng activeTab để hiển thị nội dung tương ứng với tab đang được chọn -->
-    <ng-container *ngFor="let group of lstTab">
-      <ng-container *ngIf="activeDropdownTab === group.name">
-          <ng-container *ngFor="let tab of group.tabs">
-              <div *ngIf="activeTab === tab.name">
-                  <ng-container *ngTemplateOutlet="tab.template"></ng-container>
-              </div>
-          </ng-container>
-      </ng-container>
-  </ng-container>
-</div>
-</div>
+    </div>
+  </div>
 </div>

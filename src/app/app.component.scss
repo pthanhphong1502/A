@@ -17,6 +17,19 @@
 .tabs-container {
   display: flex;
   gap: 10px;
-  background-color: white;
   height: 77px;
+  flex-direction: row;
+}
+
+.scroll-container {
+  width: 75%;
+  /* Độ rộng của vùng hiển thị */
+  overflow-x: hidden;
+  white-space: nowrap;
+  margin: 0 2rem;
+  padding: 0px;
+}
+
+.item {
+  display: inline-block;
 }

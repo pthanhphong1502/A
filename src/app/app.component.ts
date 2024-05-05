@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChild, Input, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ContentChild, ElementRef, Input, TemplateRef, ViewChild } from '@angular/core';
 import { TabComponent } from './tab/tab.component';
 import { Tab1Component } from './tab1/tab1.component';
 import { Tab2Component } from './tab2/tab2.component';
@@ -16,6 +16,40 @@ export class AppComponent implements AfterViewInit {
 
   @ViewChild('tab1Template') tab1Template!: TemplateRef<any>;
   @ViewChild('tab2Template') tab2Template!: TemplateRef<any>;
+  
+  ///////////////
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+  disableLeft: boolean = true;
+  disableRight: boolean = false;
+
+
+  scrollLeft() {
+    if (this.scrollContainer.nativeElement) {
+      this.scrollContainer.nativeElement.scrollLeft -= 40; // Khoảng cuộn khi nhấn nút trái
+      this.checkButtonStatus();
+    }
+  }
+
+  scrollRight() {
+    if (this.scrollContainer.nativeElement) {
+      this.scrollContainer.nativeElement.scrollLeft += 40; // Khoảng cuộn khi nhấn nút phải
+      this.checkButtonStatus();
+      const container = this.scrollContainer.nativeElement;
+      console.log(container.scrollLeft + container.offsetWidth)
+      console.log(container.scrollWidth)
+    }
+  }
+
+  checkButtonStatus() {
+    const container = this.scrollContainer.nativeElement;
+    // Kiểm tra nếu đã đến cận cảng bên trái
+    this.disableLeft = container.scrollLeft <= 0;
+    // Kiểm tra nếu đã đến cận cảng bên phải
+    this.disableRight = container.scrollLeft + container.offsetWidth >= container.scrollWidth;
+  }
+  ////////////////
+
+
 
   lstTab: any[] = [];
 
@@ -66,6 +100,7 @@ export class AppComponent implements AfterViewInit {
         ]
       }
     ];
+    console.log(this.scrollContainer.nativeElement);
   }
 
 
