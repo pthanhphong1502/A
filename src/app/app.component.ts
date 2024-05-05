@@ -13,10 +13,11 @@ export class AppComponent implements AfterViewInit {
   title = 'tab';
   activeTab: string = 'eInfo';
   activeDropdownTab: string = 'circurriculumVitae';
+  dropdownOpen = false;
 
   @ViewChild('tab1Template') tab1Template!: TemplateRef<any>;
   @ViewChild('tab2Template') tab2Template!: TemplateRef<any>;
-  
+
   ///////////////
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   disableLeft: boolean = true;
@@ -53,12 +54,13 @@ export class AppComponent implements AfterViewInit {
 
   lstTab: any[] = [];
 
-  constructor() {}
+  constructor() { }
 
   ngAfterViewInit(): void {
     this.lstTab = [
       {
         name: 'circurriculumVitae',
+        icon: 'icon-attach_money',
         text: 'Sơ yếu lý lịch',
         tabs: [
           { text: 'THÔNG TIN CÁ NHÂN', name: 'eInfo', template: this.tab1Template, active: true },
@@ -79,6 +81,7 @@ export class AppComponent implements AfterViewInit {
       },
       {
         text: 'Pháp lý', // 'Pháp lý
+        icon: 'icon-keyboard_arrow_down',
         name: 'legalInfo',
         tabs: [
           { text: 'Tổng quan', name: 'overview', template: this.tab1Template, active: true },
@@ -104,6 +107,10 @@ export class AppComponent implements AfterViewInit {
 
 
 
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+    console.log(12);
+  }
 
   clickTab(item: any) {
     this.activeTab = item.tabs[0].name; // Mặc định chọn tab con đầu tiên
@@ -116,15 +123,15 @@ export class AppComponent implements AfterViewInit {
     // Gán giá trị của group.name cho activeDropdownTab
     // Tìm tab chứa component tương ứng với tab được chọn trong lstTab
     for (let group of this.lstTab) {
-        for (let t of group.tabs) {
-            if (t.name === tab) {
-                this.activeTab = t.name;
-                console.log(t.name)
-                console.log(this.activeTab)
-                console.log(this.activeDropdownTab)
-                return; // Kết thúc vòng lặp khi tìm thấy tab
-            }
+      for (let t of group.tabs) {
+        if (t.name === tab) {
+          this.activeTab = t.name;
+          console.log(t.name)
+          console.log(this.activeTab)
+          console.log(this.activeDropdownTab)
+          return; // Kết thúc vòng lặp khi tìm thấy tab
         }
+      }
     }
   }
 }
