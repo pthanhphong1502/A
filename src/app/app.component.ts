@@ -69,7 +69,7 @@ export class AppComponent implements AfterViewInit {
         name: 'circurriculumVitae',
         icon: 'icon-attach_money',
         text: 'Sơ yếu lý lịch',
-	      icon: 'icon-attach_money',
+	      icons: 'icon-attach_money',
         tabs: [
           { text: 'THÔNG TIN CÁ NHÂN', name: 'eInfo', template: this.eInfo, active: true, icon: 'icon-attach_money' },
           { text: 'THÔNG TIN CÔNG VIỆC', name: 'eJob', template: this.eJob, active: true, icon: 'icon-attach_money' },
@@ -84,7 +84,7 @@ export class AppComponent implements AfterViewInit {
       {
         text: 'Thông tin pháp lý',
         name: 'legalInfo',
-	      icon: 'icon-attach_money',
+	      icons: 'icon-attach_money',
         tabs: [
           { text: 'Tổng quan', name: 'overview', template: this.tab1Template, active: true, icon: 'icon-attach_money' },
           { text: 'Số bảo hiểm - Số lao động', name: 'number', template: this.tab2Template, active: true, icon: 'icon-attach_money' },
@@ -103,7 +103,7 @@ export class AppComponent implements AfterViewInit {
       {
         text: 'Phúc lợi',
         name: 'benefit',
-	      icon: 'icon-attach_money',
+	      icons: 'icon-attach_money',
         tabs: [
           { text: 'Nhóm tính lương', name: 'payrollGroup', template: this.tab1Template, active: true, icon: 'icon-attach_money' },
           { text: 'Lương cơ bản', name: 'basicBenefit', template: this.tab2Template, active: true, icon: 'icon-attach_money' },
@@ -123,7 +123,7 @@ export class AppComponent implements AfterViewInit {
       {
         text: 'Quá trình làm việc',
         name: 'workingProcess',
-	      icon: 'icon-attach_money',
+	      icons: 'icon-attach_money',
         tabs: [
           { text: 'Nghỉ phép', name: 'onLeave', template: this.tab1Template, active: true, icon: 'icon-attach_money' },
           { text: 'Nghỉ bù', name: 'compensatoryLeave', template: this.tab2Template, active: true, icon: 'icon-attach_money' },
@@ -137,7 +137,7 @@ export class AppComponent implements AfterViewInit {
       {
         text: 'Kiến thức',
         name: 'knowledge',
-	      icon: 'icon-attach_money',
+	      icons: 'icon-attach_money',
         tabs: [
           { text: 'Chuyên ngành đào tạo', name: 'specializedTraining', template: this.tab1Template, active: true, icon: 'icon-attach_money' },
           { text: 'Chứng chỉ', name: 'certificate', template: this.tab2Template, active: true, icon: 'icon-attach_money' },
@@ -149,7 +149,7 @@ export class AppComponent implements AfterViewInit {
       {
         text: 'Khen thưởng - Kỹ luật',
         name: 'bonus',
-	      icon: 'icon-attach_money',
+	      icons: 'icon-attach_money',
         tabs: [
           { text: 'Đánh giá', name: 'evaluate', template: this.tab1Template, active: true, icon: 'icon-attach_money' },
           { text: 'Khen thưởng', name: 'bonusChild', template: this.tab2Template, active: true, icon: 'icon-attach_money' },
@@ -159,7 +159,7 @@ export class AppComponent implements AfterViewInit {
       {
         text: 'Sức khỏe - Hoạt động',
         name: 'healthInfo',
-	      icon: 'icon-attach_money',
+	      icons: 'icon-attach_money',
         tabs: [
           { text: 'Thẻ bảo hiểm y tế', name: 'healthInsurance', template: this.tab1Template, active: true, icon: 'icon-attach_money' },
           { text: 'Tai nạn lao động', name: 'laborAccident', template: this.tab2Template, active: true, icon: 'icon-attach_money' },
@@ -174,7 +174,7 @@ export class AppComponent implements AfterViewInit {
       {
         text: 'Thôi việc',
         name: 'quitJob',
-	      icon: 'icon-attach_money',
+	      icons: 'icon-attach_money',
         tabs: [
           { text: 'Quyết toán thôi việc', name: 'severanceSettlement', template: this.tab1Template, active: true, icon: 'icon-attach_money' },
           { text: 'Chi tiết bàn giao', name: 'handoverDetails', template: this.tab2Template, active: true, icon: 'icon-attach_money' },
@@ -184,7 +184,7 @@ export class AppComponent implements AfterViewInit {
       {
         text: 'Theo dõi thay đổi',
         name: 'followChange',
-	      icon: 'icon-attach_money',
+	      icons: 'icon-attach_money',
         tabs: [
         ]
       },

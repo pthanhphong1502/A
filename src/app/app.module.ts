@@ -7,6 +7,7 @@ import { TabComponent } from './tab/tab.component';
 import { Tab1Component } from './tab1/tab1.component';
 import { Tab2Component } from './tab2/tab2.component';
 import { Tab3Component } from './tab3/tab3.component';
+import { CodxCoreModule } from 'codx-core';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { Tab3Component } from './tab3/tab3.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
     provideClientHydration()
