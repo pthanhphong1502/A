@@ -10,6 +10,9 @@ export class AppComponent implements AfterViewInit {
   activeTab: string = 'eInfo';
   activeDropdownTab: string = 'circurriculumVitae';
   dropdownOpen = false;
+  isHovered: boolean = false;
+  showTab: boolean = false;
+
 
   //Test
   @ViewChild('tab1Template') tab1Template!: TemplateRef<any>;
@@ -46,6 +49,15 @@ export class AppComponent implements AfterViewInit {
       console.log(container.scrollLeft + container.offsetWidth)
       console.log(container.scrollWidth)
     }
+  }
+
+  toggleTab(): void {
+    this.showTab = !this.showTab;
+    console.log(111);
+  }
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
   }
 
   checkButtonStatus() {

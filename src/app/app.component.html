@@ -67,7 +67,7 @@
           <i class="icon-keyboard_arrow_left icon-40"></i>
         </button>
 
-        <ul class="tabs-container scroll-container" #scrollContainer>
+        <ul class="tabs-container scroll-container" #scrollContainer style="width: 84%;">
           <!-- Sử dụng ngFor để lặp qua các nhóm tabs trong lstTab -->
           <ng-container *ngFor="let group of lstTab">
             <!-- Chỉ hiển thị các tabs trong nhóm nếu nhóm đó là activeDropdownTab -->
@@ -87,6 +87,7 @@
             </ng-container>
           </ng-container>
         </ul>
+        <button class="scroll-button right" (click)="scrollRight()" *ngIf="!disableRight">
 
         <button
           class="scroll-button right"
@@ -95,6 +96,47 @@
         >
           <i class="icon-keyboard_arrow_right icon-40"></i>
         </button>
+
+        <div class="position-absolute" style="top: 25px; right: 20px; position: relative;">
+          <button type="button" class="btn btn-icon btn-sm rounded d-block" (click)="toggleDropdown()"
+            aria-haspopup="true" [attr.aria-expanded]="dropdownOpen.toString()">
+            <i class="icon-keyboard_arrow_down pb-1" style="background-color: #C9F7F5; color: #005DC7"></i>
+            <div class="fw-bold mx-1 clearfix">
+              ALL
+            </div>
+          </button>
+          <div class="dropdown-menu" [ngClass]="{ 'show': dropdownOpen }" aria-labelledby="dropdownToggleButton" style="position: absolute; min-width: 17rem;
+            top: 40px;
+            right: 10%;">
+            <div style="position: relative;">
+              <ng-container *ngFor="let item of lstTab; let index = index">
+                <div class="box-submenu">
+                  <a class="nav-link btn btn-lg btn-clean ls-tab submenu-hover" (click)="clickTab(item)">
+                    <div class="d-flex align-items-center ">
+
+                      <li class="fw-bold ">
+                        <i [class]="item.icon"></i>
+                        {{ item.text }}
+                        <!-- <div class="box-submenu-2">
+                          <ul>
+                            <li *ngFor="let tabs of item.tabs">
+                              {{tabs.text}}
+                            </li>
+                          </ul>
+                        </div> -->
+                      </li>
+
+                      <!-- <div class="fw-bold">
+                        <i [class]="item.icon"></i>
+                        {{ item.text }}
+                      </div> -->
+                    </div>
+                  </a>
+                </div>
+
+              </ng-container>
+            </div>
+
 
         <div
           class="position-absolute"
@@ -134,6 +176,7 @@
           </div>
         </div>
       </div>
+
       <!-- Sử dụng activeTab để hiển thị nội dung tương ứng với tab đang được chọn -->
       <ng-container *ngFor="let group of lstTab">
         <ng-container *ngIf="activeDropdownTab === group.name">
@@ -144,6 +187,9 @@
           </ng-container>
         </ng-container>
       </ng-container>
+
+
+
     </div>
   </div>
 </div>
