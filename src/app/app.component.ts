@@ -25,14 +25,14 @@ export class AppComponent implements AfterViewInit {
 
   scrollLeft() {
     if (this.scrollContainer.nativeElement) {
-      this.scrollContainer.nativeElement.scrollLeft -= 40; // Khoảng cuộn khi nhấn nút trái
+      this.scrollContainer.nativeElement.scrollLeft -= 48; // Khoảng cuộn khi nhấn nút trái
       this.checkButtonStatus();
     }
   }
 
   scrollRight() {
     if (this.scrollContainer.nativeElement) {
-      this.scrollContainer.nativeElement.scrollLeft += 40; // Khoảng cuộn khi nhấn nút phải
+      this.scrollContainer.nativeElement.scrollLeft += 48; // Khoảng cuộn khi nhấn nút phải
       this.checkButtonStatus();
       const container = this.scrollContainer.nativeElement;
       console.log(container.scrollLeft + container.offsetWidth)
@@ -45,7 +45,7 @@ export class AppComponent implements AfterViewInit {
     // Kiểm tra nếu đã đến cận cảng bên trái
     this.disableLeft = container.scrollLeft <= 0;
     // Kiểm tra nếu đã đến cận cảng bên phải
-    this.disableRight = container.scrollLeft + container.offsetWidth >= container.scrollWidth;
+    this.disableRight = container.scrollLeft + container.offsetWidth + 5 >= container.scrollWidth;
   }
   ////////////////
 
@@ -64,9 +64,9 @@ export class AppComponent implements AfterViewInit {
           { text: 'THÔNG TIN CÁ NHÂN', name: 'eInfo', template: this.tab1Template, active: true },
           { text: 'THÔNG TIN CÔNG VIỆC', name: 'eJob', template: this.tab2Template, active: true },
           { text: 'THÔNG Tin tuyển dụng', name: 'eHiring', template: this.tab1Template, active: true },
-          { text: 'THân nhân', name: 'eFamily', template: this.tab2Template, active: false },
-          { text: 'THÔNG TIN đảng - đoàn', name: 'eGroup', template: this.tab1Template, active: false },
-          { text: 'Tiểu sử cá nhân', name: 'ePersonal', template: this.tab2Template, active: false },
+          { text: 'THân nhân', name: 'eFamily', template: this.tab2Template, active: true },
+          { text: 'THÔNG TIN đảng - đoàn', name: 'eGroup', template: this.tab1Template, active: true },
+          { text: 'Tiểu sử cá nhân', name: 'ePersonal', template: this.tab2Template, active: true },
           { text: 'LAo động nước ngoài', name: 'eForeign', template: this.tab1Template, active: true },
           { text: 'Hồ sơ cần nộp', name: 'eContract', template: this.tab2Template, active: true },
           // { name: 'THÔNG TIN TUYỂN DỤNG', component: TabComponent },
@@ -100,7 +100,6 @@ export class AppComponent implements AfterViewInit {
         ]
       }
     ];
-    console.log(this.scrollContainer.nativeElement);
   }
 
 

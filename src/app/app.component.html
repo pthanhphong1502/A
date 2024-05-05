@@ -39,33 +39,11 @@
   </div>
   <div class="tab">
     <div class="container">
-      <div ngbDropdown class="position-absolute" style="top: 25px; right: 0; position: absolute;">
-        <button type="button" class="btn btn-icon btn-sm rounded" style="background-color: #C9F7F5; color: #005DC7"
-          ngbDropdownToggle>
-          <i class="icon-keyboard_arrow_down" style="color: #005DC7"></i>
-        </button>
-        <div ngbDropdownMenu style="height: fit-content">
-          <div class="fw-bold mx-1">
-            ALL
-          </div>
-          <div class="w-100" style="width: 100%;">
-            <ul class="nav nav-tabs nav-pills flex-column border-0 p-3 pb-0 w-100">
-              <ng-container *ngFor="let item of lstTab; let index = index">
-                <li class="nav-item w-100 mb-1" style="width: 100%; margin-bottom: 5px;">
-                  <a class="nav-link w-100 btn btn-lg btn-clean" (click)="clickTab(item)">
-                    <div class="d-flex align-items-center">
-                      <div class="fw-bold">
-                        {{ item.text }}
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              </ng-container>
-            </ul>
-          </div>
-        </div>
-      </div>
       <div class="tabs-container-parent">
+        <button class="scroll-button left" (click)="scrollLeft()" *ngIf="!disableLeft">
+          <i class="icon-keyboard_arrow_left"></i>
+        </button>
+
         <ul class="tabs-container scroll-container" #scrollContainer>
           <!-- Sử dụng ngFor để lặp qua các nhóm tabs trong lstTab -->
           <ng-container *ngFor="let group of lstTab">
@@ -82,12 +60,37 @@
             </ng-container>
           </ng-container>
         </ul>
-        <button (click)="scrollLeft()" [disabled]="disableLeft">
-          <i class="icon-keyboard_arrow_left"></i>
+
+        <button class="scroll-button right" (click)="scrollRight()" *ngIf="!disableRight">
+          <i class="icon-keyboard_arrow_right"></i>
         </button>
-        <button (click)="scrollRight()" [disabled]="disableRight">
-          <i cla></i>
-        </button>
+
+        <div ngbDropdown class="position-absolute" style="top: 25px; right: 20px; position: absolute;">
+          <button type="button" class="btn btn-icon btn-sm rounded" style="background-color: #C9F7F5; color: #005DC7"
+            ngbDropdownToggle>
+            <i class="icon-keyboard_arrow_down" style="color: #005DC7"></i>
+          </button>
+          <div ngbDropdownMenu style="height: fit-content">
+            <div class="fw-bold mx-1">
+              ALL
+            </div>
+            <div class="w-100" style="width: 100%;">
+              <ul class="nav nav-tabs nav-pills flex-column border-0 p-3 pb-0 w-100">
+                <ng-container *ngFor="let item of lstTab; let index = index">
+                  <li class="nav-item w-100 mb-1" style="width: 100%; margin-bottom: 5px;">
+                    <a class="nav-link w-100 btn btn-lg btn-clean" (click)="clickTab(item)">
+                      <div class="d-flex align-items-center">
+                        <div class="fw-bold">
+                          {{ item.text }}
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- Sử dụng activeTab để hiển thị nội dung tương ứng với tab đang được chọn -->
       <ng-container *ngFor="let group of lstTab">

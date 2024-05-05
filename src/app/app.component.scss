@@ -14,6 +14,12 @@
   width: 100%;
 }
 
+
+.tabs-container-parent {
+  background-color: white;
+  position: relative;
+}
+
 .tabs-container {
   display: flex;
   gap: 10px;
@@ -22,14 +28,32 @@
 }
 
 .scroll-container {
-  width: 75%;
+  width: 80%;
   /* Độ rộng của vùng hiển thị */
   overflow-x: hidden;
   white-space: nowrap;
-  margin: 0 2rem;
-  padding: 0px;
+  margin: 0 2% 0 4%;
+  padding: 4px;
 }
 
 .item {
   display: inline-block;
+}
+
+.scroll-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.left {
+  left: 1%;
+}
+
+.right {
+  right: 13%;
 }
