@@ -1,6 +1,6 @@
 .main-screen {
   display: flex;
-  background-color: lightgray;
+  background-color: #F5F8FA;
 }
 
 .left-menu {
@@ -18,6 +18,7 @@
 .tabs-container-parent {
   background-color: white;
   position: relative;
+  border-bottom: 1px solid #E2E3EE;
 }
 
 .tabs-container {
@@ -56,4 +57,8 @@
 
 .right {
   right: 13%;
+}
+
+.icon {
+  color: #005DC7;
 }
