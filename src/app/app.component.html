@@ -44,19 +44,14 @@
   <div class="tab">
     <div class="container">
       <div ngbDropdown class="position-absolute" style="top: 25px; right: 0; position: absolute;">
-        <button type="button" class="btn btn-icon btn-sm rounded-circle" style="background-color: #C9F7F5; color: #005DC7"
+        <button type="button" class="btn btn-icon btn-sm rounded" style="background-color: #C9F7F5; color: #005DC7"
               ngbDropdownToggle>
-          <i class="icon-keyboard_arrow_down" style="color: white"></i>
+          <i class="icon-keyboard_arrow_down" style="color: #005DC7"></i>
         </button>
         <div ngbDropdownMenu style="height: fit-content">
-          <div>
-            <div>
-              <span><i class="icon-keyboard_arrow_down"></i></span>
-              <span>ALL</span>
+            <div class="fw-bold mx-1">
+              ALL
             </div>
-            <div class="px-3">
-            </div>
-          </div>
           <div class="w-100" style="width: 100%;">
             <ul class="nav nav-tabs nav-pills flex-column border-0 p-3 pb-0 w-100">
               <ng-container *ngFor="let item of lstTab; let index = index">
