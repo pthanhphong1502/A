@@ -6,6 +6,10 @@
   <app-tab1></app-tab1>
 </ng-template>
 
+<ng-template #eInfo>
+  <app-tab></app-tab>
+</ng-template>
+
 <div class="main-screen">
   <div class="left-menu">
     <div class="me-4" style="min-width: fit-content !important; max-width: 370px !important">
@@ -39,9 +43,9 @@
   </div>
   <div class="tab">
     <div class="container">
-      <div class="tabs-container-parent">
+      <div class="tabs-container-parent mb-10 rounded">
         <button class="scroll-button left" (click)="scrollLeft()" *ngIf="!disableLeft">
-          <i class="icon-keyboard_arrow_left"></i>
+          <i class="icon-keyboard_arrow_left icon-40"></i>
         </button>
 
         <ul class="tabs-container scroll-container" #scrollContainer>
@@ -53,7 +57,8 @@
               <ng-container *ngFor="let tab of group.tabs">
                 <li *ngIf="tab.active" (click)="clickDropdownTab(tab.name)"
                   [class.active]="activeDropdownTab === tab.name"
-                  class="tab-link d-flex text-uppercase fw-bold align-items-center item ">
+                  class="align-items-center d-flex flex-column fw-bold item justify-content-center tab-link text-uppercase me-5">
+                  <i class="icon icon-16" [ngClass]="tab.icon"></i>
                   {{ tab.text }}
                 </li>
               </ng-container>
@@ -62,7 +67,7 @@
         </ul>
 
         <button class="scroll-button right" (click)="scrollRight()" *ngIf="!disableRight">
-          <i class="icon-keyboard_arrow_right"></i>
+          <i class="icon-keyboard_arrow_right icon-40"></i>
         </button>
 
         <!-- <div class="position-absolute" style="top: 25px; right: 20px; position: absolute;">
