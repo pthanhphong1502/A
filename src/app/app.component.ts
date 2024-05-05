@@ -11,8 +11,8 @@ import { Tab3Component } from './tab3/tab3.component';
 })
 export class AppComponent implements AfterViewInit {
   title = 'tab';
-  activeTab: string = 'THÔNG TIN CÁ NHÂN';
-  activeDropdownTab: string = 'Sơ yếu lý lịch';
+  activeTab: string = 'eInfo';
+  activeDropdownTab: string = 'circurriculumVitae';
 
   @ViewChild('tab1Template') tab1Template!: TemplateRef<any>;
   @ViewChild('tab2Template') tab2Template!: TemplateRef<any>;
@@ -24,10 +24,17 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.lstTab = [
       {
-        name: 'Sơ yếu lý lịch',
+        name: 'circurriculumVitae',
+        text: 'Sơ yếu lý lịch',
         tabs: [
-          { name: 'THÔNG TIN CÁ NHÂN', template: this.tab1Template },
-          { name: 'THÔNG TIN CÔNG VIỆC', template: this.tab2Template },
+          { text: 'THÔNG TIN CÁ NHÂN', name: 'eInfo', template: this.tab1Template, active: true },
+          { text: 'THÔNG TIN CÔNG VIỆC', name: 'eJob', template: this.tab2Template, active: true },
+          { text: 'THÔNG Tin tuyển dụng', name: 'eHiring', template: this.tab1Template, active: true },
+          { text: 'THân nhân', name: 'eFamily', template: this.tab2Template, active: true },
+          { text: 'THÔNG TIN đảng - đoàn', name: 'eGroup', template: this.tab1Template, active: true },
+          { text: 'Tiểu sử cá nhân', name: 'ePersonal', template: this.tab2Template, active: false },
+          { text: 'LAo động nước ngoài', name: 'eForeign', template: this.tab1Template, active: true },
+          { text: 'Hồ sơ cần nộp', name: 'eContract', template: this.tab2Template, active: true },
           // { name: 'THÔNG TIN TUYỂN DỤNG', component: TabComponent },
           // { name: 'THÂN NHÂN', component: Tab1Component },
           // { name: 'THÔNG TIN ĐẢNG - ĐOÀN', component: TabComponent },
@@ -37,10 +44,15 @@ export class AppComponent implements AfterViewInit {
         ]
       },
       {
-        name: 'Pháp lý',
+        text: 'Pháp lý', // 'Pháp lý
+        name: 'legalInfo',
         tabs: [
-          { name: 'Tổng quan', template: this.tab1Template },
-          { name: 'Số bảo hiểm - Số lao động', template: this.tab2Template },
+          { text: 'Tổng quan', name: 'overview', template: this.tab1Template, active: true },
+          { text: 'Số bảo hiểm - Số lao động', name: 'number', template: this.tab2Template, active: true },
+          { text: 'Tài khoản cá nhân', name: 'personalAccount', template: this.tab1Template, active: true },
+          { text: 'Hợp đồng lao động', name: 'contract', template: this.tab2Template, active: true },
+          { text: 'Hộ chiếu', name: 'passport', template: this.tab1Template, active: true },
+          { text: 'Thị thực', name: 'visa', template: this.tab2Template, active: true },
           // { name: 'Tài khoản cá nhân', component: Tab2Component },
           // { name: 'Hợp đồng lao động', component: Tab2Component },
           // { name: 'Hộ chiếu', component: Tab3Component },
@@ -56,7 +68,7 @@ export class AppComponent implements AfterViewInit {
     ];
   }
 
-  
+
 
 
   clickTab(item: any) {
