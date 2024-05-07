@@ -1,6 +1,6 @@
 .main-screen {
   display: flex;
-  background-color: #F5F8FA;
+  background-color: #f5f8fa;
 }
 
 .left-menu {
@@ -15,11 +15,10 @@
   max-width: 80%;
 }
 
-
 .tabs-container-parent {
   background-color: white;
   position: relative;
-  border-bottom: 1px solid #E2E3EE;
+  border-bottom: 1px solid #e2e3ee;
 }
 
 .tabs-container {
@@ -29,9 +28,13 @@
   flex-direction: row;
 }
 
+.icon-all {
+  background-color: #c9f7f5;
+  color: #005dc7;
+}
+
 .scroll-container {
-  width: 80%;
-  /* Độ rộng của vùng hiển thị */
+  width: 84%; /* Độ rộng của vùng hiển thị */
   overflow-x: hidden;
   white-space: nowrap;
   margin: 0 2% 0 4%;
@@ -61,17 +64,15 @@
 }
 
 .icon {
-  color: #005DC7;
+  color: #005dc7;
 }
 
 .ls-tab {
   width: 98%;
-  // margin-right: 10%;
-
 }
 
 .ls-tab:hover {
-  background-color: #0078FF !important;
+  background-color: #0078ff !important;
   color: white !important;
 }
 
@@ -81,16 +82,9 @@
 
 .box-submenu-2 {
   display: none;
-
 }
 
-.box-submenu-2:hover {
-  display: block;
-  position: absolute;
-
-}
-
-.submenu-hover:hover .box-submenu-2{
+.submenu-hover:hover .box-submenu-2 {
   display: block;
   position: fixed;
   margin-top: -44px;
@@ -98,16 +92,19 @@
 }
 
 .box-submenu {
-
   color: white !important;
+}
 
 .container-border {
   border-radius: 5px;
-  border: 1px solid #E2E3EE;
+  border: 1px solid #e2e3ee;
 }
 
-.title, .icon-edit {
-  color: #005DC7;
+.title,
+.icon-edit {
+  color: #005dc7;
 }
 
+.tab-link.active-tab {
+  border-bottom: 3px solid #0078FF;
 }

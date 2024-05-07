@@ -25,8 +25,8 @@
                   [title]="'eInfoHeaderEmployeeName'"
                   style="color: white"
                 >
-                  Ho Van Test</span
-                >
+                  Ho Van Test
+                </span>
                 <div class="align-items-center d-flex">
                   <span class="icon-14 icon-qr_code_scanner mx-1"></span>
                   <span
@@ -35,8 +35,8 @@
                     placement="bottom"
                     [title]="'Employree'"
                   >
-                    employeeID</span
-                  >
+                    employeeID
+                  </span>
                 </div>
               </div>
             </div>
@@ -67,7 +67,7 @@
           <i class="icon-keyboard_arrow_left icon-40"></i>
         </button>
 
-        <ul class="tabs-container scroll-container" #scrollContainer style="width: 84%;">
+        <ul class="tabs-container scroll-container" #scrollContainer>
           <!-- Sử dụng ngFor để lặp qua các nhóm tabs trong lstTab -->
           <ng-container *ngFor="let group of lstTab">
             <!-- Chỉ hiển thị các tabs trong nhóm nếu nhóm đó là activeDropdownTab -->
@@ -78,6 +78,7 @@
                   *ngIf="tab.active"
                   (click)="clickDropdownTab(tab.name)"
                   [class.active]="activeDropdownTab === tab.name"
+                  [class.active-tab]="tab.isActive"
                   class="align-items-center d-flex flex-column fw-bold gap-2 item justify-content-center me-5 tab-link text-uppercase"
                 >
                   <i class="icon icon-16" [ngClass]="tab.icon"></i>
@@ -87,8 +88,6 @@
             </ng-container>
           </ng-container>
         </ul>
-        <button class="scroll-button right" (click)="scrollRight()" *ngIf="!disableRight">
-
         <button
           class="scroll-button right"
           (click)="scrollRight()"
@@ -97,47 +96,6 @@
           <i class="icon-keyboard_arrow_right icon-40"></i>
         </button>
 
-        <div class="position-absolute" style="top: 25px; right: 20px; position: relative;">
-          <button type="button" class="btn btn-icon btn-sm rounded d-block" (click)="toggleDropdown()"
-            aria-haspopup="true" [attr.aria-expanded]="dropdownOpen.toString()">
-            <i class="icon-keyboard_arrow_down pb-1" style="background-color: #C9F7F5; color: #005DC7"></i>
-            <div class="fw-bold mx-1 clearfix">
-              ALL
-            </div>
-          </button>
-          <div class="dropdown-menu" [ngClass]="{ 'show': dropdownOpen }" aria-labelledby="dropdownToggleButton" style="position: absolute; min-width: 17rem;
-            top: 40px;
-            right: 10%;">
-            <div style="position: relative;">
-              <ng-container *ngFor="let item of lstTab; let index = index">
-                <div class="box-submenu">
-                  <a class="nav-link btn btn-lg btn-clean ls-tab submenu-hover" (click)="clickTab(item)">
-                    <div class="d-flex align-items-center ">
-
-                      <li class="fw-bold ">
-                        <i [class]="item.icon"></i>
-                        {{ item.text }}
-                        <!-- <div class="box-submenu-2">
-                          <ul>
-                            <li *ngFor="let tabs of item.tabs">
-                              {{tabs.text}}
-                            </li>
-                          </ul>
-                        </div> -->
-                      </li>
-
-                      <!-- <div class="fw-bold">
-                        <i [class]="item.icon"></i>
-                        {{ item.text }}
-                      </div> -->
-                    </div>
-                  </a>
-                </div>
-
-              </ng-container>
-            </div>
-
-
         <div
           class="position-absolute"
           style="top: 25px; right: 20px; position: relative"
@@ -145,34 +103,36 @@
           <button
             type="button"
             class="btn btn-icon btn-sm rounded d-block"
+            (click)="toggleDropdown()"
             aria-haspopup="true"
             [attr.aria-expanded]="dropdownOpen.toString()"
           >
-            <i
-              class="icon-keyboard_arrow_down pb-1"
-              style="background-color: #c9f7f5; color: #005dc7"
-            ></i>
+            <i class="icon-22 icon-all icon-keyboard_arrow_down rounded"></i>
             <div class="fw-bold mx-1 clearfix">ALL</div>
           </button>
           <div
-            class="dropdown-menu dropdown-menu-right"
+            class="dropdown-menu"
             [ngClass]="{ show: dropdownOpen }"
             aria-labelledby="dropdownToggleButton"
-            style="position: absolute; top: 40px; right: 10%"
+            style="position: absolute; min-width: 17rem; top: 40px; right: 10%"
           >
-            <ng-container *ngFor="let item of lstTab; let index = index">
-              <a
-                class="nav-link w-100 btn btn-lg btn-clean ls-tab"
-                (click)="clickTab(item)"
-              >
-                <div class="d-flex align-items-center">
-                  <div class="fw-bold">
-                    <i [class]="item.icon"></i>
-                    {{ item.text }}
-                  </div>
+            <div style="position: relative">
+              <ng-container *ngFor="let item of lstTab; let index = index">
+                <div class="box-submenu">
+                  <a
+                    class="btn btn-clean btn-lg ls-tab mb-2 nav-link submenu-hover"
+                    (click)="clickTab(item)"
+                  >
+                    <div class="d-flex align-items-center">
+                      <li class="fw-bold">
+                        <i [class]="item.icons"></i>
+                        {{ item.text }}
+                      </li>
+                    </div>
+                  </a>
                 </div>
-              </a>
-            </ng-container>
+              </ng-container>
+            </div>
           </div>
         </div>
       </div>
@@ -187,9 +147,6 @@
           </ng-container>
         </ng-container>
       </ng-container>
-
-
-
     </div>
   </div>
 </div>
@@ -451,13 +408,13 @@
   </div>
 
   <div class="container-border container mb-4 bg-body">
-    <!-- -----------------------------------Hộ chiếu------------------------------------------------ -->
+    <!-- -----------------------------------Bộ phận làm việc------------------------------------------------ -->
     <div class="row mt-2">
       <div class="title d-flex align-items-center justify-content-between py-4">
         <div class="align-items-center d-flex text-left text-primary">
           <span class="icon-attach_money icon-20 me-2"></span>
           <span class="fs-5-sm fw-bold text-primary text-uppercase"
-            >Bo phan lam viec</span
+            >Bộ phận làm việc</span
           >
         </div>
         <ng-container>
@@ -473,26 +430,27 @@
     <div class="row mt-5 mb-3 pb-4">
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1">
+          <div class="fw-bold text-dark">
+            Bộ phận làm việc
             <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
           </div>
-          <div class="fw-bold text-dark">PO/BA</div>
+          <div class="text-gray-600 me-2 pb-1">PO/BA</div>
         </div>
       </div>
 
       <!-- Họ -->
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1"></div>
-          <div class="fw-bold text-dark">PO/BA</div>
+          <div class="fw-bold text-dark">Bộ phận nội bộ</div>
+          <div class="text-gray-600 me-2 pb-1">PO/BA</div>
         </div>
       </div>
 
       <!-- Tên -->
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1"></div>
-          <div class="fw-bold text-dark">Huynh Phuoc Hoa</div>
+          <div class="fw-bold text-dark">Người quản lý trực tiếp</div>
+          <div class="text-gray-600 me-2 pb-1">Huynh Phuoc Hoa</div>
         </div>
       </div>
     </div>
@@ -500,26 +458,30 @@
     <div class="row mt-5 mb-3 pb-4">
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1">
+          <div class="fw-bold text-dark">
+            Người quản lý gián tiếp
             <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
           </div>
-          <div class="fw-bold text-dark">Ton That Thuyet</div>
+          <div class="text-gray-600 me-2 pb-1">Tôn Thất Thuyết</div>
         </div>
       </div>
 
       <!-- Họ -->
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1"></div>
-          <div class="fw-bold text-dark">ttvinh&#64;lacviet.com.vn</div>
+          <div class="fw-bold text-dark">Tài khoản Portal</div>
+          <div class="text-gray-600 me-2 pb-1">ttvinh&#64;lacviet.com.vn</div>
         </div>
       </div>
 
       <!-- Tên -->
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1"></div>
-          <div class="fw-bold text-dark">Checkbox</div>
+          <div class="fw-bold text-dark">Là cán bộ chủ chốt</div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
         </div>
       </div>
     </div>
@@ -527,27 +489,30 @@
     <div class="row mb-3 py-4">
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 pb-1 d-flex"></div>
-          <div class="fw-bold text-dark">****</div>
+          <div class="fw-bold text-dark">Mật khẩu xem phiếu lương</div>
+          <div class="text-gray-600 pb-1 d-flex">****</div>
         </div>
       </div>
       <div class="col-8">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 pb-1 d-flex"></div>
-          <div class="fw-bold text-dark">Checkbox</div>
+          <div class="fw-bold text-dark">Tự động phát sinh mật khẩu</div>
+          <div class="text-gray-600 pb-1 d-flex">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
         </div>
       </div>
     </div>
   </div>
 
   <div class="container-border container mb-4 bg-body">
-    <!-- -----------------------------------Mã số thuế------------------------------------------------ -->
+    <!-- -----------------------------------Công việc------------------------------------------------ -->
     <div class="row mt-2">
       <div class="title d-flex align-items-center justify-content-between py-4">
         <div class="align-items-center d-flex text-left text-primary">
           <span class="icon-attach_money icon-20 me-2"></span>
           <span class="fs-5-sm fw-bold text-primary text-uppercase"
-            >Cong viec</span
+            >Công việc</span
           >
         </div>
         <div>
@@ -561,26 +526,30 @@
     <div class="row mt-5 mb-3 pb-4">
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1">
+          <div class="fw-bold text-dark">
+            Ngành nghề
             <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
           </div>
-          <div class="fw-bold text-dark">Nganh nghe</div>
+          <div class="text-gray-600 me-2 pb-1">Phân tích nghiệp vụ</div>
         </div>
       </div>
 
       <!-- Họ -->
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1"></div>
-          <div class="fw-bold text-dark">Checkbox</div>
+          <div class="fw-bold text-dark">Phân công đúng chuyên ngành</div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
         </div>
       </div>
 
       <!-- Tên -->
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1"></div>
-          <div class="fw-bold text-dark">Nhan vien</div>
+          <div class="fw-bold text-dark">Chức vụ</div>
+          <div class="text-gray-600 me-2 pb-1">Nhân viên</div>
         </div>
       </div>
     </div>
@@ -588,26 +557,27 @@
     <div class="row mt-5 mb-3 pb-4">
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1">
+          <div class="fw-bold text-dark">
+            Ngày bổ nhiệm
             <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
           </div>
-          <div class="fw-bold text-dark">05/12/2022</div>
+          <div class="text-gray-600 me-2 pb-1">05/12/2022</div>
         </div>
       </div>
 
       <!-- Họ -->
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1"></div>
-          <div class="fw-bold text-dark">Phan tich nghiep vu</div>
+          <div class="fw-bold text-dark">Chức danh công việc</div>
+          <div class="text-gray-600 me-2 pb-1">Phân tích nghiệp vụ</div>
         </div>
       </div>
 
       <!-- Tên -->
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1"></div>
-          <div class="fw-bold text-dark">1</div>
+          <div class="fw-bold text-dark">Bậc</div>
+          <div class="text-gray-600 me-2 pb-1">1</div>
         </div>
       </div>
     </div>
@@ -615,26 +585,27 @@
     <div class="row mt-5 mb-3 pb-4">
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1">
+          <div class="fw-bold text-dark">
+            Ngày nhận chức danh
             <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
           </div>
-          <div class="fw-bold text-dark">05/12/2022</div>
+          <div class="text-gray-600 me-2 pb-1">05/12/2022</div>
         </div>
       </div>
 
       <!-- Họ -->
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1"></div>
-          <div class="fw-bold text-dark">Team Lead</div>
+          <div class="fw-bold text-dark">Cấp bậc kiêm nhiệm</div>
+          <div class="text-gray-600 me-2 pb-1">Team Lead</div>
         </div>
       </div>
 
       <!-- Tên -->
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1"></div>
-          <div class="fw-bold text-dark">Phat trien phan mem</div>
+          <div class="fw-bold text-dark">Chức danh kiêm nhiệm</div>
+          <div class="text-gray-600 me-2 pb-1">Phát triển phần mềm</div>
         </div>
       </div>
     </div>
@@ -642,26 +613,27 @@
     <div class="row mt-5 mb-3 pb-4">
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1">
+          <div class="fw-bold text-dark">
+            Thời hạn kiêm nhiệm từ ngày
             <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
           </div>
-          <div class="fw-bold text-dark">05/12/2022</div>
+          <div class="text-gray-600 me-2 pb-1">05/12/2022</div>
         </div>
       </div>
 
       <!-- Họ -->
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1"></div>
-          <div class="fw-bold text-dark">29/12/2023</div>
+          <div class="fw-bold text-dark">Đến ngày</div>
+          <div class="text-gray-600 me-2 pb-1">29/12/2023</div>
         </div>
       </div>
 
       <!-- Tên -->
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1"></div>
-          <div class="fw-bold text-dark">CoDx</div>
+          <div class="fw-bold text-dark">Bộ phận kiêm nhiệm</div>
+          <div class="text-gray-600 me-2 pb-1">CoDx</div>
         </div>
       </div>
     </div>
@@ -669,26 +641,33 @@
     <div class="row mt-5 mb-3 pb-4">
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1">
+          <div class="fw-bold text-dark">
+            Là chuyên gia đào tạo
             <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
           </div>
-          <div class="fw-bold text-dark">Checkbox</div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
         </div>
       </div>
 
       <!-- Họ -->
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1"></div>
-          <div class="fw-bold text-dark">Checkbox</div>
+          <div class="fw-bold text-dark">Là chuyên gia tuyển dụng</div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
         </div>
       </div>
 
       <!-- Tên -->
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 me-2 pb-1"></div>
-          <div class="fw-bold text-dark">ELV02233</div>
+          <div class="fw-bold text-dark">Mã nhân viên cũ</div>
+          <div class="text-gray-600 me-2 pb-1">ELV02233</div>
         </div>
       </div>
     </div>
@@ -696,8 +675,8 @@
     <div class="row mb-3 py-4">
       <div class="col-4">
         <div class="d-flex flex-column">
-          <div class="text-gray-600 pb-1"></div>
-          <div class="fw-bold text-dark">Khong co ghi chu</div>
+          <div class="fw-bold text-dark">Ghi chú</div>
+          <div class="text-gray-600 pb-1">Không có ghi chú</div>
         </div>
       </div>
     </div>
@@ -712,7 +691,8 @@
       <div class="title d-flex align-items-center justify-content-between py-4">
         <div class="align-items-center d-flex text-left text-primary">
           <span class="icon-attach_money icon-20 me-2"></span>
-          <span class="fs-5-sm fw-bold text-primary text-uppercase">Thong tin tuyen dung</span
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Thong tin tuyen dung</span
           >
         </div>
         <div>
@@ -763,165 +743,158 @@
   <div class="container-border container mb-4 bg-body">
     <!-- -----------------------------------Bo phan tuyen dung ban dau--------------------------------------- -->
     <div class="row mt-2">
-        <div class="title d-flex align-items-center justify-content-between py-4">
-            <div class="align-items-center d-flex text-left text-primary">
-                <span class="icon-attach_money icon-20 me-2"></span>
-                <span class="fs-5-sm fw-bold text-primary text-uppercase">Ly lich ca nhan</span>
-            </div>
-                <div>
-                    <button type="button" class="btn btn-icon btn-white">
-                        <span class="icon-edit icon-18"></span>
-                    </button>
-                </div>
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Ly lich ca nhan</span
+          >
         </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
     </div>
     <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
     <div class="row mt-5 mb-3 pb-4">
-        <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 me-2 pb-1">
-                    <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
-                </div>
-                <div class="fw-bold text-dark">HCS</div>
-            </div>
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">HCS</div>
         </div>
+      </div>
 
-         <!-- Họ -->
-         <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 me-2 pb-1">
-                </div>
-                <div class="fw-bold text-dark">Career Builder</div>
-            </div>
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">Career Builder</div>
         </div>
+      </div>
 
-        <!-- Tên -->
-        <div class="col-4">
-            <div class="d-flex flex-column">
-              <div class="text-gray-600 me-2 pb-1">
-                </div>
-                <div class="fw-bold text-dark">Nguyen Tran Phuong Thao</div>
-            </div>
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">Nguyen Tran Phuong Thao</div>
         </div>
+      </div>
     </div>
     <!-- Ngày hết hạn / Nơi cấp  -->
     <div class="row mb-3 py-4">
-        <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 pb-1 d-flex">
-                </div>
-                    <div class="fw-bold text-dark" >Hinh thuc tuyen dung 1</div>
-            </div>
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">Hinh thuc tuyen dung 1</div>
         </div>
-        <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 pb-1 d-flex">
-                </div>
-                    <div class="fw-bold text-dark" >05/12/2022</div>
-            </div>
+      </div>
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">05/12/2022</div>
         </div>
-        <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 pb-1 d-flex">
-                </div>
-                    <div class="fw-bold text-dark" >05/12/2023</div>
-            </div>
+      </div>
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">05/12/2023</div>
         </div>
+      </div>
     </div>
   </div>
 
   <div class="container-border container mb-4 bg-body">
     <!-- -----------------------------------Ket qua phong van--------------------------------------- -->
     <div class="row mt-2">
-        <div class="title d-flex align-items-center justify-content-between py-4">
-            <div class="align-items-center d-flex text-left text-primary">
-                <span class="icon-attach_money icon-20 me-2"></span>
-                <span class="fs-5-sm fw-bold text-primary text-uppercase">Ket qua phong van</span>
-            </div>
-                <div>
-                    <button type="button" class="btn btn-icon btn-white">
-                        <span class="icon-edit icon-18"></span>
-                    </button>
-                </div>
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Ket qua phong van</span
+          >
         </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
     </div>
     <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
     <div class="row mt-5 mb-3 pb-4">
-        <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 me-2 pb-1">
-                    <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
-                </div>
-                <div class="fw-bold text-dark">Phan tich nghiep vu</div>
-            </div>
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">Phan tich nghiep vu</div>
         </div>
+      </div>
 
-         <!-- Họ -->
-         <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 me-2 pb-1">
-                </div>
-                <div class="fw-bold text-dark">3</div>
-            </div>
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">3</div>
         </div>
+      </div>
 
-        <!-- Tên -->
-        <div class="col-4">
-            <div class="d-flex flex-column">
-              <div class="text-gray-600 me-2 pb-1">
-                </div>
-                <div class="fw-bold text-dark">2022</div>
-            </div>
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">2022</div>
         </div>
+      </div>
     </div>
     <!-- Ngày hết hạn / Nơi cấp  -->
     <div class="row mb-3 py-4">
-        <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 pb-1 d-flex">
-                </div>
-                    <div class="fw-bold text-dark" >Ton That Tuan</div>
-            </div>
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">Ton That Tuan</div>
         </div>
-        <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 pb-1 d-flex">
-                </div>
-                    <div class="fw-bold text-dark" >Bo sung vi tri Phan tich nghiep vu</div>
-            </div>
+      </div>
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">
+            Bo sung vi tri Phan tich nghiep vu
+          </div>
         </div>
-        <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 pb-1 d-flex">
-                </div>
-                    <div class="fw-bold text-dark" >Nguyen Van A</div>
-            </div>
+      </div>
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">Nguyen Van A</div>
         </div>
+      </div>
     </div>
-     <!-- Ngày hết hạn / Nơi cấp  -->
-     <div class="row mb-3 py-4">
+    <!-- Ngày hết hạn / Nơi cấp  -->
+    <div class="row mb-3 py-4">
       <div class="col-4">
-          <div class="d-flex flex-column">
-              <div class="text-gray-600 pb-1 d-flex">
-              </div>
-                  <div class="fw-bold text-dark" >Nghiep vu nhan su</div>
-          </div>
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">Nghiep vu nhan su</div>
+        </div>
       </div>
       <div class="col-4">
-          <div class="d-flex flex-column">
-              <div class="text-gray-600 pb-1 d-flex">
-              </div>
-                  <div class="fw-bold text-dark" >Tot</div>
-          </div>
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">Tot</div>
+        </div>
       </div>
       <div class="col-4">
-          <div class="d-flex flex-column">
-              <div class="text-gray-600 pb-1 d-flex">
-              </div>
-                  <div class="fw-bold text-dark" >Khong co</div>
-          </div>
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">Khong co</div>
+        </div>
       </div>
-  </div>
+    </div>
   </div>
 </ng-template>
 <!-- 4. Than nhan -->
@@ -933,7 +906,8 @@
       <div class="title d-flex align-items-center justify-content-between py-4">
         <div class="align-items-center d-flex text-left text-primary">
           <span class="icon-attach_money icon-20 me-2"></span>
-          <span class="fs-5-sm fw-bold text-primary text-uppercase">Thong tin cong doan</span
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Thong tin cong doan</span
           >
         </div>
         <div>
@@ -986,95 +960,89 @@
   <div class="container-border container mb-4 bg-body">
     <!-- -----------------------------------Tieu su ca nhan--------------------------------------- -->
     <div class="row mt-2">
-        <div class="title d-flex align-items-center justify-content-between py-4">
-            <div class="align-items-center d-flex text-left text-primary">
-                <span class="icon-attach_money icon-20 me-2"></span>
-                <span class="fs-5-sm fw-bold text-primary text-uppercase">Tieu su ca nhan</span>
-            </div>
-                <div>
-                    <button type="button" class="btn btn-icon btn-white">
-                        <span class="icon-edit icon-18"></span>
-                    </button>
-                </div>
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Tieu su ca nhan</span
+          >
         </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
     </div>
     <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
     <div class="row mt-5 mb-3 pb-4">
-        <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 me-2 pb-1">
-                    <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
-                </div>
-                <div class="fw-bold text-dark">Gia đình văn hóa</div>
-            </div>
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">Gia đình văn hóa</div>
         </div>
+      </div>
 
-         <!-- Họ -->
-         <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 me-2 pb-1">
-                </div>
-                <div class="fw-bold text-dark">Gia đình văn hóa</div>
-            </div>
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">Gia đình văn hóa</div>
         </div>
+      </div>
 
-        <!-- Tên -->
-        <div class="col-4">
-            <div class="d-flex flex-column">
-              <div class="text-gray-600 me-2 pb-1">
-                </div>
-                <div class="fw-bold text-dark">Binh thuong</div>
-            </div>
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">Binh thuong</div>
         </div>
+      </div>
     </div>
     <!-- Ngày hết hạn / Nơi cấp  -->
     <div class="row mb-3 py-4">
-        <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 pb-1 d-flex">
-                </div>
-                    <div class="fw-bold text-dark" >Tieu su</div>
-            </div>
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">Tieu su</div>
         </div>
-        <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 pb-1 d-flex">
-                </div>
-                    <div class="fw-bold text-dark" >Khong co</div>
-            </div>
+      </div>
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">Khong co</div>
         </div>
-        <div class="col-4">
-            <div class="d-flex flex-column">
-                <div class="text-gray-600 pb-1 d-flex">
-                </div>
-                    <div class="fw-bold text-dark" >Checkbox</div>
-            </div>
+      </div>
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">Checkbox</div>
         </div>
+      </div>
     </div>
-     <!-- Ngày hết hạn / Nơi cấp  -->
-     <div class="row mb-3 py-4">
+    <!-- Ngày hết hạn / Nơi cấp  -->
+    <div class="row mb-3 py-4">
       <div class="col-4">
-          <div class="d-flex flex-column">
-              <div class="text-gray-600 pb-1 d-flex">
-              </div>
-                  <div class="fw-bold text-dark" >Phan tich nghiep vu</div>
-          </div>
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">Phan tich nghiep vu</div>
+        </div>
       </div>
       <div class="col-4">
-          <div class="d-flex flex-column">
-              <div class="text-gray-600 pb-1 d-flex">
-              </div>
-                  <div class="fw-bold text-dark" >39 nam</div>
-          </div>
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">39 nam</div>
+        </div>
       </div>
       <div class="col-4">
-          <div class="d-flex flex-column">
-              <div class="text-gray-600 pb-1 d-flex">
-              </div>
-                  <div class="fw-bold text-dark" >Khong co ghi chu</div>
-          </div>
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">Khong co ghi chu</div>
+        </div>
       </div>
-  </div>
+    </div>
   </div>
 
   <div class="container-border container mb-4 bg-body">
@@ -1083,7 +1051,8 @@
       <div class="title d-flex align-items-center justify-content-between py-4">
         <div class="align-items-center d-flex text-left text-primary">
           <span class="icon-attach_money icon-20 me-2"></span>
-          <span class="fs-5-sm fw-bold text-primary text-uppercase">Thuong binh</span
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Thuong binh</span
           >
         </div>
         <div>
@@ -1128,7 +1097,8 @@
       <div class="title d-flex align-items-center justify-content-between py-4">
         <div class="align-items-center d-flex text-left text-primary">
           <span class="icon-attach_money icon-20 me-2"></span>
-          <span class="fs-5-sm fw-bold text-primary text-uppercase">Quan nhan du bi</span
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Quan nhan du bi</span
           >
         </div>
         <div>
@@ -1173,7 +1143,8 @@
       <div class="title d-flex align-items-center justify-content-between py-4">
         <div class="align-items-center d-flex text-left text-primary">
           <span class="icon-attach_money icon-20 me-2"></span>
-          <span class="fs-5-sm fw-bold text-primary text-uppercase">Bo doi</span
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Bo doi</span
           >
         </div>
         <ng-container>
@@ -1237,7 +1208,8 @@
       <div class="title d-flex align-items-center justify-content-between py-4">
         <div class="align-items-center d-flex text-left text-primary">
           <span class="icon-attach_money icon-20 me-2"></span>
-          <span class="fs-5-sm fw-bold text-primary text-uppercase">Thong tin chung</span
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Thong tin chung</span
           >
         </div>
         <div>
@@ -1291,7 +1263,8 @@
       <div class="title d-flex align-items-center justify-content-between py-4">
         <div class="align-items-center d-flex text-left text-primary">
           <span class="icon-attach_money icon-20 me-2"></span>
-          <span class="fs-5-sm fw-bold text-primary text-uppercase">Thuoc dien lao dong</span
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Thuoc dien lao dong</span
           >
         </div>
         <ng-container>
@@ -1326,7 +1299,8 @@
       <div class="title d-flex align-items-center justify-content-between py-4">
         <div class="align-items-center d-flex text-left text-primary">
           <span class="icon-attach_money icon-20 me-2"></span>
-          <span class="fs-5-sm fw-bold text-primary text-uppercase">So giay phep lao dong</span
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >So giay phep lao dong</span
           >
         </div>
         <div>
@@ -1378,5 +1352,2197 @@
 
 <!-- II. Thong tin phap ly -->
 <!-- 1. Tong quan -->
+<ng-template #overview>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------So bao hiem - so lao dong------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-assignment_ind icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >So bao hiem - So lao dong</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+        <!-- <ng-contaniner *ngIf="function && function?.write == true">
+                <div>
+                    <button type="button" class="btn btn-icon btn-white" (click)="openPopupEdit()">
+                        <span class="icon-edit icon-18"></span>
+                    </button>
+                </div>
+            </ng-contaniner> -->
+      </div>
+    </div>
+    <div class="row mt-5 mb-3 pb-4">
+      <!-- Mã nhân viên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">0123456789</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">02/11/2021</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">02/11/2021</div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3 py-4">
+      <!-- Bí danh -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">0123456789</div>
+        </div>
+      </div>
+      <!-- Giới tính -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">05/12/2022</div>
+        </div>
+      </div>
+      <!-- Tình trạng hôn nhân -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 fw-normal mb-1"></div>
+          <div class="fw-bold text-dark">Bệnh viện Quận 1 - CS1</div>
+        </div>
+      </div>
+    </div>
+    <!-- Tôn giáo / Trình độ văn hóa / Hệ đào tạo phổ thông-->
+    <div class="row mb-3 py-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1"></div>
+          <div class="fw-bold text-dark">0123456789</div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1"></div>
+          <div class="fw-bold text-dark">05/12/2020</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Tai khoan ca nhan------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Tai khoan ca nhan</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">0123456789</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">TRAN THE VINH</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">BIDV</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Hop dong lao dong------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Hop dong lao dong</span
+          >
+        </div>
+        <ng-container>
+          <div>
+            <button type="button" class="btn btn-icon btn-white">
+              <span class="icon-edit icon-18"></span>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">HCS006</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">HD 1 nam</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">05/04/2025</div>
+        </div>
+      </div>
+    </div>
+    <!-- Ngày hết hạn / Nơi cấp  -->
+    <div class="row mb-3 py-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">05/04/2024</div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">05/04/2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Hộ chiếu------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Hộ chiếu</span
+          >
+        </div>
+        <ng-container>
+          <div>
+            <button type="button" class="btn btn-icon btn-white">
+              <span class="icon-edit icon-18"></span>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">01</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2029</div>
+        </div>
+      </div>
+    </div>
+    <!-- Ngày hết hạn / Nơi cấp  -->
+    <div class="row mb-3 py-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">TP.HCM</div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">VISA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Thị thực------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Thị thực</span
+          >
+        </div>
+        <ng-container>
+          <div>
+            <button type="button" class="btn btn-icon btn-white">
+              <span class="icon-edit icon-18"></span>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">01</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2029</div>
+        </div>
+      </div>
+    </div>
+    <!-- Ngày hết hạn / Nơi cấp  -->
+    <div class="row mb-3 py-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">TP.HCM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Giay phep lao dong------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Giay phep lao dong</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">01</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Mien giay phep lao dong------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Mien giay phep lao dong</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">01</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------The tam tru------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >The tam tru</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">01</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Dang ky tam tru------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Dang ky tam tru</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">01</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Giay phep lai xe------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Giay phep lai xe</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">01</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Thong tin uy quyen------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Thong tin uy quyen</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">Nguyễn Trần Phương Thảo</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">TRAN THE VINH</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">BIDV</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
 <!-- 2. So bao hiem - So lao dong -->
-<!-- 3. Ho chieu -->
+<ng-template #number>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------So bao hiem - so lao dong------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-assignment_ind icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >So bao hiem - So lao dong</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+        <!-- <ng-contaniner *ngIf="function && function?.write == true">
+                <div>
+                    <button type="button" class="btn btn-icon btn-white" (click)="openPopupEdit()">
+                        <span class="icon-edit icon-18"></span>
+                    </button>
+                </div>
+            </ng-contaniner> -->
+      </div>
+    </div>
+    <div class="row mt-5 mb-3 pb-4">
+      <!-- Mã nhân viên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">0123456789</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">02/11/2021</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">02/11/2021</div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3 py-4">
+      <!-- Bí danh -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">0123456789</div>
+        </div>
+      </div>
+      <!-- Giới tính -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">05/12/2022</div>
+        </div>
+      </div>
+      <!-- Tình trạng hôn nhân -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 fw-normal mb-1"></div>
+          <div class="fw-bold text-dark">Bệnh viện Quận 1 - CS1</div>
+        </div>
+      </div>
+    </div>
+    <!-- Tôn giáo / Trình độ văn hóa / Hệ đào tạo phổ thông-->
+    <div class="row mb-3 py-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1"></div>
+          <div class="fw-bold text-dark">0123456789</div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1"></div>
+          <div class="fw-bold text-dark">05/12/2020</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- 3. Tai khoan ca nhan -->
+<ng-template #personalAccount>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Tai khoan ca nhan------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Tai khoan ca nhan</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">0123456789</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">TRAN THE VINH</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">BIDV</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- 4. Hop dong lao dong -->
+<ng-template #contract>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Hop dong lao dong------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Hợp đồng lao động</span
+          >
+        </div>
+        <ng-container>
+          <div>
+            <button type="button" class="btn btn-icon btn-white">
+              <span class="icon-edit icon-18"></span>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Số hợp đồng
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">HCS006</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Loại hợp đồng</div>
+          <div class="text-gray-600 me-2 pb-1">HD 1 năm</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Thời hạn hợp đồng</div>
+          <div class="text-gray-600 me-2 pb-1">05/04/2025</div>
+        </div>
+      </div>
+    </div>
+    <!-- Ngày hết hạn / Nơi cấp  -->
+    <div class="row mb-3 py-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Ngày hiệu lực</div>
+          <div class="text-gray-600 pb-1 d-flex">05/04/2024</div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Ngày ký</div>
+          <div class="text-gray-600 pb-1 d-flex">05/04/2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- 5. Ho chieu -->
+<ng-template #passport>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Hộ chiếu------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Hộ chiếu</span
+          >
+        </div>
+        <ng-container>
+          <div>
+            <button type="button" class="btn btn-icon btn-white">
+              <span class="icon-edit icon-18"></span>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">01</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2029</div>
+        </div>
+      </div>
+    </div>
+    <!-- Ngày hết hạn / Nơi cấp  -->
+    <div class="row mb-3 py-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">TP.HCM</div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">VISA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- 6. Thi thuc -->
+<ng-template #visa>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Thị thực------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Thị thực</span
+          >
+        </div>
+        <ng-container>
+          <div>
+            <button type="button" class="btn btn-icon btn-white">
+              <span class="icon-edit icon-18"></span>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">01</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2029</div>
+        </div>
+      </div>
+    </div>
+    <!-- Ngày hết hạn / Nơi cấp  -->
+    <div class="row mb-3 py-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 pb-1 d-flex"></div>
+          <div class="fw-bold text-dark">TP.HCM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- 7. Giay phep lao dong -->
+<ng-template #work>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Giay phep lao dong------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Giay phep lao dong</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">01</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- 8. Mien giay phep lao dong -->
+<ng-template #nowork>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Mien giay phep lao dong------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Mien giay phep lao dong</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">01</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- 9. The tam tru -->
+<ng-template #card>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------The tam tru------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >The tam tru</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">01</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- 10. Dang ky tam tru -->
+<ng-template #signup>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Dang ky tam tru------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Dang ky tam tru</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">01</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- 11. Giay phep lai xe -->
+<ng-template #car>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Giay phep lai xe------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Giay phep lai xe</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">01</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">01/04/2024</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- 12. Thong tin uy quyen -->
+<ng-template #info>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Thong tin uy quyen------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Thong tin uy quyen</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="fw-bold text-dark">Nguyễn Trần Phương Thảo</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">TRAN THE VINH</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="text-gray-600 me-2 pb-1"></div>
+          <div class="fw-bold text-dark">BIDV</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- III. Thong tin phuc loi -->
+<!-- 1. Nhom tinh luong -->
+<ng-template #payrollGroup>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Nhóm tính lương------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Nhóm tính lương</span
+          >
+        </div>
+        <ng-container>
+          <div>
+            <button type="button" class="btn btn-icon btn-white">
+              <span class="icon-edit icon-18"></span>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- Là CMND / Số / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+            Nhóm tính lương
+          </div>
+          <div class="text-gray-600 me-2 pb-1">Lương văn phòng - Net</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Nguyên tệ tính lương</div>
+          <div class="text-gray-600 me-2 pb-1">VND</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Mức đóng thuế TNCN</div>
+          <div class="text-gray-600 me-2 pb-1">Lương thời gian</div>
+        </div>
+      </div>
+    </div>
+    <!-- Ngày hết hạn / Nơi cấp / Dấu vết đặc biệt -->
+    <div class="row mb-3 py-4">
+      <div class="col">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Thời hạn được tăng lương</div>
+          <div class="text-gray-600 pb-1 d-flex">1 năm/lần</div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Cam kết quyết toán thuế tại DN</div>
+          <div class="text-gray-600 pb-1 d-flex">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Có đóng phí dịch vụ</div>
+          <div class="text-gray-600 pb-1 d-flex">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Địa chỉ trong CMND -->
+    <div class="row mb-3 py-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Ký cam kết chưa khấu trừ thuế</div>
+          <div class="text-gray-600 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-border container mb-4 bg-body">
+    <!-- Tam ung luong -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Tạm ứng lương</span
+          >
+        </div>
+        <ng-container>
+          <div>
+            <button type="button" class="btn btn-icon btn-white">
+              <span class="icon-edit icon-18"></span>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="row mb-3 py-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Theo số tiền cố định</div>
+          <div class="text-gray-600 pb-1 d-flex">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Khoản tạm ứng</div>
+          <div class="text-gray-600 pb-1 d-flex">9.000.000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Hạch toán chi phí lương------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Hạch toán chi phí lương</span
+          >
+        </div>
+        <ng-container>
+          <div>
+            <button type="button" class="btn btn-icon btn-white">
+              <span class="icon-edit icon-18"></span>
+            </button>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Tài khoản chi phí
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">Khoản thuế TNCN</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">TK BHXH do DN đóng</div>
+          <div class="text-gray-600 me-2 pb-1">Chi phí lương nhân viên</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Chi phí lương nhân viên</div>
+          <div class="text-gray-600 me-2 pb-1">Khoan BHYT</div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            TK BHTN do DN đóng
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">Khoản BHTN</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">TK KPCĐ do DN đóng</div>
+          <div class="text-gray-600 me-2 pb-1">Khoản KPCĐ</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Tài khoản thuế TNCN</div>
+          <div class="text-gray-600 me-2 pb-1">Khoản Thuế TNCN</div>
+        </div>
+      </div>
+    </div>
+    <!-- Ngày hết hạn / Nơi cấp  -->
+    <div class="row mb-3 py-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Phân loại tiền lương</div>
+          <div class="text-gray-600 pb-1 d-flex">Chi phí lương nhân viên</div>
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Trung tâm chi phí</div>
+          <div class="text-gray-600 pb-1 d-flex">
+            Chi phí nhân viên quản lý
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- 2. Luong co ban -->
+<ng-template #basicBenefit></ng-template>
+<!-- 3. Luong theo vi tri cong viec -->
+<ng-template #positionSalary></ng-template>
+<!-- 4. Phu cap -->
+<ng-template #allowance></ng-template>
+<!-- 5. Thu nhap khac -->
+<ng-template #otherIncome></ng-template>
+<!-- 6. Bao hiem bat buoc -->
+<ng-template #insurance></ng-template>
+<!-- 7. Khau tru khac -->
+<ng-template #otherDeduction></ng-template>
+<!-- 8. Tai san cap phat -->
+<ng-template #asset></ng-template>
+<!-- 9. Tien vay -->
+<ng-template #loan></ng-template>
+<!-- 10. Bao hiem khac -->
+<ng-template #otherInsurance></ng-template>
+<!-- 11. Trung tam chi phi -->
+<ng-template #costCenter></ng-template>
+<!-- 12. Tai khoan tai xe -->
+<ng-template #driverAccount></ng-template>
+<!-- 13. Giay uy quyen -->
+<ng-template #powerOfAttorney></ng-template>
+
+<!-- IV. Qua trinh lam viec -->
+<!-- 1. Nghi phep -->
+<ng-template #onLeave></ng-template>
+<!-- 2. Nghi bu -->
+<ng-template #compensatoryLeave></ng-template>
+<!-- 3. Bo nhiem - dieu chuyen -->
+<ng-template #appoint></ng-template>
+<!-- 4. Nhat ky cong tac -->
+<ng-template #workDiary></ng-template>
+<!-- 5. Du an tham gia -->
+<ng-template #projects></ng-template>
+<!-- 6. Cong viec thuc hien -->
+<ng-template #workPerformed></ng-template>
+<!-- 7. Kinh nghiem truoc day -->
+<ng-template #previousExperience></ng-template>
+
+<!-- V. Kien thuc -->
+<!-- 1. Chuyen nganh dao tao -->
+<ng-template #major></ng-template>
+<!-- 2. Chung chi -->
+<ng-template #certificate></ng-template>
+<!-- 3. Ky nang -->
+<ng-template #skills></ng-template>
+<!-- 4. Dao tao noi bo -->
+<ng-template #internalTraining></ng-template>
+<!-- 5. Cong trinh nghien cuu -->
+<ng-template #research></ng-template>
+
+<!-- VI. Khen thuong - Ky luat -->
+<!-- 1. Danh gia -->
+<ng-template #evaluate></ng-template>
+<!-- 2. Khen thuong -->
+<ng-template #reward></ng-template>
+<!-- 3. Ky luat -->
+<ng-template #discipline></ng-template>
+
+<!-- VII. Suc khoe - Hoat dong -->
+<!-- 1. The BHYT -->
+<ng-template #healthInsurance></ng-template>
+<!-- 2. Tai nan lao dong -->
+<ng-template #workAccident></ng-template>
+<!-- 3. Kham suc khoe -->
+<ng-template #physicalExamination></ng-template>
+<!-- 4. Benh nghe nghiep -->
+<ng-template #occupationalDisease></ng-template>
+<!-- 5. Lich tiem vaccine -->
+<ng-template #vaccineSchedule></ng-template>
+<!-- 6. Hoi vien -->
+<ng-template #member></ng-template>
+<!-- 7. Danh hieu duoc phong -->
+<ng-template #titleConferred></ng-template>
+<!-- 8. Su kien -->
+<ng-template #events></ng-template>
+
+<!-- VIII. Thoi viec -->
+<!-- 1. Quyet toan thoi viec -->
+<ng-template #settlement>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Thông tin thôi việc------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Thông tin thôi việc</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Ngày nộp đơn nghỉ việc
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">15/12/2023</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Ngày bắt đầu nghỉ</div>
+          <div class="text-gray-600 me-2 pb-1">
+            16/12/2023
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Hình thức thôi việc</div>
+          <div class="text-gray-600 me-2 pb-1">Tự động bỏ việc</div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Số quyết định thôi việc
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">12456</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Ngày dự kiến thôi việc</div>
+          <div class="text-gray-600 me-2 pb-1">15/12/2023</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Số ngày nghỉ việc sớm</div>
+          <div class="text-gray-600 me-2 pb-1">1</div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Số quyết định thanh lý HĐLĐ
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">12456</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Ngày thanh lý</div>
+          <div class="text-gray-600 me-2 pb-1">15/12/2023</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Tình trạng thanh lý</div>
+          <div class="text-gray-600 me-2 pb-1">Chưa thanh lý</div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Lý do thôi việc
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">Hết hạn hợp đồng</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Hết hạn hợp đồng</div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Hối tiếc</div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Mật khẩu truy cập thôi việc
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">123</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Ngày hoàn thiện hồ sơ</div>
+          <div class="text-gray-600 me-2 pb-1">16/12/2023</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Ngày ký</div>
+          <div class="text-gray-600 me-2 pb-1">16/12/2023</div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Người ký
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">Hà Bính Thân</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Nhận chế độ thôi việc</div>
+          <div class="text-gray-600 me-2 pb-1">Chuyển khoản</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Ngày chuyển lương</div>
+          <div class="text-gray-600 me-2 pb-1">18/12/2023</div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Đã phỏng vấn thôi việc
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Sẽ tuyển lại</div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Tuyển dụng thay thế</div>
+          <div class="text-gray-600 me-2 pb-1">Duyệt</div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Đã có người thay thế
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Đã thôi việc</div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Đã chuyển đơn vị</div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Địa chỉ trong CMND -->
+    <div class="row mb-3 py-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Ghi chú</div>
+          <div class="text-gray-600 pb-1">Không có ghi chú</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Trách nhiệm nhân viên------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Trách nhiệm nhân viên</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Đã bàn giao công việc, tài liệu, hồ sơ liên quan
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Đã bàn giao tài sản, công cụ làm việc
+          </div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Tài sản còn nợ</div>
+          <div class="text-gray-600 me-2 pb-1">Chuột máy tính</div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Đã thanh toán công nợ, tạm ứng với Cty
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Còn nợ ban TCKT</div>
+          <div class="text-gray-600 me-2 pb-1">0.00</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Còn nợ Bộ phận thu phí</div>
+          <div class="text-gray-600 me-2 pb-1">0.00</div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Trả phiếu KCB
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Còn nợ tại bộ phận</div>
+          <div class="text-gray-600 me-2 pb-1">0.00</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Ngày trả phiếu KCB</div>
+          <div class="text-gray-600 me-2 pb-1">18/12/2023</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------Trách nhiệm công ty------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Trách nhiệm công ty</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Đã khóa tài khoản đăng nhập hệ thống
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Đã gửi thông báo cho bộ phận</div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Chưa quyết toán thuế</div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Đã trả sổ lao động
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Ngày trả sổ lao động</div>
+          <div class="text-gray-600 me-2 pb-1">18/12/2023</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Đã trả sổ BHXH</div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Ngày trả sổ BHXH
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">18/12/2023</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Có nhận BHXH không</div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Số tiền</div>
+          <div class="text-gray-600 me-2 pb-1">180,000,000</div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Chưa trả lương
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">
+            Checkbox
+            <!-- <codx-input type="checkbox" isChecked="true"></codx-input> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Số tiền chưa trả lương</div>
+          <div class="text-gray-600 me-2 pb-1">9,000,000</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Người nhận sổ</div>
+          <div class="text-gray-600 me-2 pb-1">Trần Thế Vinh</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- 2. Chi tiet ban giao -->
+<ng-template #handover></ng-template>
+<!-- 3. Qua trinh duyet don -->
+<ng-template #approvalProcess>
+  <div class="container-border container mb-4 bg-body">
+    <!-- -----------------------------------XÉT DUYỆT THÔI VIỆC------------------------------------------------ -->
+    <div class="row mt-2">
+      <div class="title d-flex align-items-center justify-content-between py-4">
+        <div class="align-items-center d-flex text-left text-primary">
+          <span class="icon-attach_money icon-20 me-2"></span>
+          <span class="fs-5-sm fw-bold text-primary text-uppercase"
+            >Xét duyệt thôi việc</span
+          >
+        </div>
+        <div>
+          <button type="button" class="btn btn-icon btn-white">
+            <span class="icon-edit icon-18"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mã số thuế / Ngày cấp MST / Nơi cấp MST -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Ngày đăng ký
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">15/12/2023</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Người đăng ký</div>
+          <div class="text-gray-600 me-2 pb-1">
+            Trần Thế Vinh
+          </div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Chúc vụ</div>
+          <div class="text-gray-600 me-2 pb-1">Nhân viên</div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Chúc danh
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">Phân tích nghiệp vụ</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Bộ phận</div>
+          <div class="text-gray-600 me-2 pb-1">CDC</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Quản lý trực tiếp</div>
+          <div class="text-gray-600 me-2 pb-1">Huỳnh Phước Hòa</div>
+        </div>
+      </div>
+    </div>
+    <!-- SỐ hộ chiếu / Loại hộ chiếu / Ngày cấp -->
+    <div class="row mt-5 mb-3 pb-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">
+            Ngày làm việc cuối cùng
+            <!-- <span class="icon-wysiwyg icon-16 text-gray-600 me-2"></span> -->
+          </div>
+          <div class="text-gray-600 me-2 pb-1">16/12/2023</div>
+        </div>
+      </div>
+
+      <!-- Họ -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Ghi chú</div>
+          <div class="text-gray-600 me-2 pb-1">Không có ghi chú</div>
+        </div>
+      </div>
+
+      <!-- Tên -->
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Ý kiến phê duyệt</div>
+          <div class="text-gray-600 me-2 pb-1">Duyệt</div>
+        </div>
+      </div>
+    </div>
+    <!-- Địa chỉ trong CMND -->
+    <div class="row mb-3 py-4">
+      <div class="col-4">
+        <div class="d-flex flex-column">
+          <div class="fw-bold text-dark">Lý do thôi việc</div>
+          <div class="text-gray-600 pb-1">Lý do cá nhân</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
