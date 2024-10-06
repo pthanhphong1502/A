@@ -1,0 +1,200 @@
+USE Test
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ALTER PROCEDURE [dbo].[HR_SpAutoInsertOrUpdateDataPrefixTableEmpTemplate]
+    @SchemaName VARCHAR(10),
+    @PrefixTableName VARCHAR(100),
+    @ExcelTemplateID UNIQUEIDENTIFIER,
+    @CreatedBy VARCHAR(50),
+    @strEmps VARCHAR(MAX)
+AS
+BEGIN
+    DECLARE @ExcelTemplateIDReplace NVARCHAR(50), @MainTable NVARCHAR(256), @MainTableReplace NVARCHAR(100), @FieldUpdate NVARCHAR(MAX), @query NVARCHAR(MAX), @FieldName NVARCHAR(50), @TableName NVARCHAR(50), @AlloCode NVARCHAR(20);
+
+    SET @ExcelTemplateIDReplace = CAST(REPLACE(@ExcelTemplateID, '-', '') AS NVARCHAR(50));
+    SET @MainTable = '[' + @SchemaName + '].[' + @PrefixTableName + '_' + @ExcelTemplateIDReplace + '_' + @CreatedBy + ']';
+    SET @MainTableReplace = @PrefixTableName + '_' + @ExcelTemplateIDReplace + '_' + @CreatedBy;
+
+    SELECT 
+        CAST(data AS NVARCHAR(50)) AS EmployeeID,
+        T1.EmployeeID AS CurrentEmployeeID
+    INTO #tblEmps
+    FROM HR_FNSplitString(@strEmps, ',') AS T
+    LEFT JOIN HR_Employees AS T1 WITH (NOLOCK) 
+        ON T.data = T1.EmployeeID;
+
+    DECLARE @FieldList TABLE (
+        FieldName NVARCHAR(200),
+        TableName NVARCHAR(150)
+    );
+
+    INSERT INTO @FieldList (FieldName, TableName)
+    SELECT FieldName, TableName 
+    FROM HR_SysExcelTemplateEmpField
+    WHERE ExcelTemplateID = @ExcelTemplateID;
+
+    DECLARE @AlloGradeList TABLE (
+        AlloGradeCode NVARCHAR(20)
+    );
+
+    INSERT INTO @AlloGradeList (AlloGradeCode)
+    SELECT AlloGradeCode
+    FROM HR_SysExcelTemplateEmpAlloGrade
+    WHERE ExcelTemplateID = @ExcelTemplateID;
+
+    SET @FieldUpdate = '';
+    DECLARE column_cursor CURSOR FOR
+    SELECT FieldName
+    FROM @FieldList
+    WHERE TableName = 'CV'; 
+
+    OPEN column_cursor;
+    FETCH NEXT FROM column_cursor INTO @FieldName;
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        SET @FieldUpdate = @FieldUpdate + @FieldName + ' = T.[CV.' + @FieldName + '], ';
+        FETCH NEXT FROM column_cursor INTO @FieldName;
+    END
+
+    CLOSE column_cursor;
+    DEALLOCATE column_cursor;
+
+    -- Xóa dấu phẩy cuối cùng của chuỗi
+    SET @FieldUpdate = LEFT(@FieldUpdate, LEN(@FieldUpdate) - 1);
+
+    SET @query = 'UPDATE HR_Employees SET ' + @FieldUpdate + 
+                 ' FROM HR_Employees AS E ' +
+                 ' INNER JOIN #tblEmps AS Emps ON E.EmployeeID = Emps.EmployeeID ' +
+                 ' INNER JOIN ' + @MainTable + ' AS T ON T.[CV.EmployeeID] = Emps.EmployeeID ' +
+                 ' WHERE Emps.CurrentEmployeeID IS NOT NULL';
+    print @query
+	--EXEC sp_executesql @query;
+
+    SET @FieldUpdate = '';
+    DECLARE column_cursor_bs CURSOR FOR
+    SELECT FieldName 
+    FROM @FieldList
+    WHERE TableName = 'BS';
+
+    OPEN column_cursor_bs;
+    FETCH NEXT FROM column_cursor_bs INTO @FieldName;
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        SET @FieldUpdate = @FieldUpdate + @FieldName + ' = T.[BS.' + @FieldName + ']' + ', ';
+        FETCH NEXT FROM column_cursor_bs INTO @FieldName;
+    END
+
+    CLOSE column_cursor_bs;
+    DEALLOCATE column_cursor_bs;
+
+    SET @FieldUpdate = LEFT(@FieldUpdate, LEN(@FieldUpdate) - 1);
+
+    SET @query = 'UPDATE HR_EmpBasicSalary SET ' + @FieldUpdate + 
+                 ' FROM HR_EmpBasicSalary AS BS ' +
+                 ' INNER JOIN #tblEmps AS Emps ON BS.EmployeeID = Emps.EmployeeID ' +
+                 ' INNER JOIN ' + @MainTable + ' AS T ON T.[CV.EmployeeID] = Emps.EmployeeID ' +
+                 ' WHERE Emps.CurrentEmployeeID IS NOT NULL';
+    print @query
+	--EXEC sp_executesql @query;
+
+    SET @FieldUpdate = '';
+    DECLARE column_cursor_hd CURSOR FOR
+    SELECT FieldName 
+    FROM @FieldList
+    WHERE TableName = 'HD'; 
+
+    OPEN column_cursor_hd;
+    FETCH NEXT FROM column_cursor_hd INTO @FieldName;
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        SET @FieldUpdate = @FieldUpdate + @FieldName + ' = T.[HD.' + @FieldName + ']' + ', ';
+        FETCH NEXT FROM column_cursor_hd INTO @FieldName;
+    END
+
+    CLOSE column_cursor_hd;
+    DEALLOCATE column_cursor_hd;
+
+    SET @FieldUpdate = LEFT(@FieldUpdate, LEN(@FieldUpdate) - 2);
+
+    SET @query = 'UPDATE HR_EmpContract SET ' + @FieldUpdate + 
+                 ' FROM HR_EmpContract AS HD ' +
+                 ' INNER JOIN #tblEmps AS Emps ON HD.EmployeeID = Emps.EmployeeID ' +
+                 ' INNER JOIN ' + @MainTable + ' AS T ON T.[CV.EmployeeID] = Emps.EmployeeID ' +
+                 ' WHERE Emps.CurrentEmployeeID IS NOT NULL';
+    print @query
+	--EXEC sp_executesql @query;
+
+    DECLARE allo_cursor CURSOR FOR
+    SELECT AlloGradeCode FROM @AlloGradeList;
+
+    OPEN allo_cursor;
+    FETCH NEXT FROM allo_cursor INTO @AlloCode;
+
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        SET @FieldUpdate = '';
+        DECLARE column_cursor_ea CURSOR FOR
+        SELECT FieldName 
+        FROM @FieldList
+        WHERE TableName = 'EA'; 
+
+        OPEN column_cursor_ea;
+        FETCH NEXT FROM column_cursor_ea INTO @FieldName;
+
+        WHILE @@FETCH_STATUS = 0
+        BEGIN
+            SET @FieldUpdate = @FieldUpdate + @FieldName + ' = T.[EA.' + @AlloCode + '.' + @FieldName + '], ';
+            FETCH NEXT FROM column_cursor_ea INTO @FieldName;
+        END
+
+        CLOSE column_cursor_ea;
+        DEALLOCATE column_cursor_ea;
+
+        SET @FieldUpdate = LEFT(@FieldUpdate, LEN(@FieldUpdate) - 1);
+
+        -- Cập nhật bảng HR_EmpAllowance
+        SET @query = 'UPDATE HR_EmpAllowance SET ' + @FieldUpdate + 
+                     ' FROM HR_EmpAllowance AS EA ' +
+                     ' INNER JOIN #tblEmps AS Emps ON EA.EmployeeID = Emps.EmployeeID ' +
+                     ' INNER JOIN ' + @MainTable + ' AS T ON T.[CV.EmployeeID] = Emps.EmployeeID ' +
+                     ' WHERE Emps.CurrentEmployeeID IS NOT NULL AND EA.AlloGradeCode = ''' + @AlloCode + '''';
+        print @query
+		--EXEC sp_executesql @query;
+
+        FETCH NEXT FROM allo_cursor INTO @AlloCode;
+    END
+
+    CLOSE allo_cursor;
+    DEALLOCATE allo_cursor;
+
+	---- INSERT
+	DECLARE @insertEmps NVARCHAR(MAX);
+
+	SELECT @insertEmps = STUFF((
+		SELECT ',' + EmployeeID
+		FROM #tblEmps
+		WHERE CurrentEmployeeID IS NULL
+		FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)'), 1, 1, '');
+
+	IF LEN(@insertEmps) > 0
+    BEGIN
+        -- Loại bỏ dấu phẩy đầu tiên
+        SET @insertEmps = SUBSTRING(@insertEmps, 2, LEN(@insertEmps) - 1);
+
+        EXEC HR_SpAutoInsertDataPrefixTableEmpTemplate 
+            @SchemaName = @SchemaName,
+            @PrefixTableName = @PrefixTableName,
+            @ExcelTemplateID = @ExcelTemplateID,
+            @CreatedBy = @CreatedBy,
+            @strEmps = @insertEmps;
+    END
+    DROP TABLE #tblEmps;
+END
+GO
